@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "F:\\P\\visualizer-pong-master\\build\\intermediates\\res\\merged\\debug\\raw\\mansion.mp3",
+        "source": "F:\\P\\visualizer-pong-master\\src\\main\\res\\raw\\mansion.mp3"
+    },
+    {
+        "merged": "F:\\P\\visualizer-pong-master\\build\\intermediates\\res\\merged\\debug\\raw\\test.mp3",
+        "source": "F:\\P\\visualizer-pong-master\\src\\main\\res\\raw\\test.mp3"
+    },
+    {
+        "merged": "F:\\P\\visualizer-pong-master\\build\\intermediates\\res\\merged\\debug\\raw\\workaround_1min.mp3",
+        "source": "F:\\P\\visualizer-pong-master\\src\\main\\res\\raw\\workaround_1min.mp3"
+    }
+]
