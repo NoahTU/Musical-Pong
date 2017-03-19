@@ -5,40 +5,40 @@
     density="xhdpi"
     format="8"
     plugin-version="2.2.3"
-    timestamp="154344073244173"
+    timestamp="676580530018906"
     token="6409436621953548132"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="179" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="8" />
     <task
         name="verifier"
-        duration="0" />
+        duration="2" />
 
     <artifact
-        location="F:\P\visualizer-pong-master\build\intermediates\instant-run-resources\resources-debug.ir.ap_"
-        type="RESOURCES" />
+        location="F:\P\visualizer-pong-master\build\intermediates\transforms\dex\debug\folders\1000\5\slice_2\classes.dex"
+        type="DEX" />
 
     <build
-        timestamp="154056003331418"
+        timestamp="676183444295383"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="F:\P\visualizer-pong-master\build\outputs\apk\visualizer-pong-master-debug.apk"
             type="MAIN" />
     </build>
     <build
-        timestamp="154344073244173"
+        timestamp="676580530018906"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
-            location="F:\P\visualizer-pong-master\build\intermediates\instant-run-resources\resources-debug.ir.ap_"
-            type="RESOURCES" />
+            location="F:\P\visualizer-pong-master\build\intermediates\transforms\dex\debug\folders\1000\5\slice_2\classes.dex"
+            type="DEX" />
     </build>
 
 </instant-run>

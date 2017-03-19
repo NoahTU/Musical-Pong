@@ -27,7 +27,7 @@ ADDED from F:\P\visualizer-pong-master\src\main\AndroidManifest.xml:7:5-43
 application
 ADDED from F:\P\visualizer-pong-master\src\main\AndroidManifest.xml:9:5-23:19
 	android:label
-		ADDED from F:\P\visualizer-pong-master\src\main\AndroidManifest.xml:11:9-41
+		ADDED from F:\P\visualizer-pong-master\src\main\AndroidManifest.xml:11:9-49
 	android:icon
 		ADDED from F:\P\visualizer-pong-master\src\main\AndroidManifest.xml:10:9-45
 activity#com.nudofia.app.MainActivity
@@ -35,7 +35,7 @@ ADDED from F:\P\visualizer-pong-master\src\main\AndroidManifest.xml:12:9-22:20
 	android:screenOrientation
 		ADDED from F:\P\visualizer-pong-master\src\main\AndroidManifest.xml:16:13-49
 	android:label
-		ADDED from F:\P\visualizer-pong-master\src\main\AndroidManifest.xml:14:13-45
+		ADDED from F:\P\visualizer-pong-master\src\main\AndroidManifest.xml:14:13-53
 	android:configChanges
 		ADDED from F:\P\visualizer-pong-master\src\main\AndroidManifest.xml:13:13-72
 	android:name

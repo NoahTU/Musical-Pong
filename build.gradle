@@ -20,7 +20,7 @@ android {
     buildToolsVersion "25.0.2"
 
     defaultConfig {
-        applicationId "com.pheelicks.visualizer"
+        applicationId "com.nudofia.app"
         minSdkVersion 9
         targetSdkVersion 9
     }

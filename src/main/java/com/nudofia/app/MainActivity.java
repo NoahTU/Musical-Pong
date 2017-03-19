@@ -13,8 +13,6 @@ import java.io.IOException;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff.Mode;
-import android.graphics.PorterDuffXfermode;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -23,15 +21,15 @@ import com.nudofia.utils.TunnelPlayerWorkaround;
 import com.nudofia.visualizer.R;
 import com.nudofia.visualizer.VisualizerView;
 import com.nudofia.visualizer.renderer.BarGraphRenderer;
-import com.nudofia.visualizer.renderer.CircleBarRenderer;
-import com.nudofia.visualizer.renderer.CircleRenderer;
-import com.nudofia.visualizer.renderer.LineRenderer;
 
 
 public class MainActivity extends Activity {
   private MediaPlayer mPlayer;
   private MediaPlayer mSilentPlayer;  /* to avoid tunnel player issue */
   private VisualizerView mVisualizerView;
+  private GameThread gamethr;
+  private VisualizerView game;
+
 
   /** Called when the activity is first created. */
   @Override
@@ -123,48 +121,14 @@ public class MainActivity extends Activity {
     mVisualizerView.addRenderer(barGraphRendererBottom);
 
     Paint paint2 = new Paint();
-    paint2.setStrokeWidth(12f);
+    paint2.setStrokeWidth(50f);
     paint2.setAntiAlias(true);
     paint2.setColor(Color.argb(200, 181, 111, 233));
-    BarGraphRenderer barGraphRendererTop = new BarGraphRenderer(4, paint2, true);
+    BarGraphRenderer barGraphRendererTop = new BarGraphRenderer(16, paint2, true);
     mVisualizerView.addRenderer(barGraphRendererTop);
   }
 
-  private void addCircleBarRenderer()
-  {
-    Paint paint = new Paint();
-    paint.setStrokeWidth(8f);
-    paint.setAntiAlias(true);
-    paint.setXfermode(new PorterDuffXfermode(Mode.LIGHTEN));
-    paint.setColor(Color.argb(255, 222, 92, 143));
-    CircleBarRenderer circleBarRenderer = new CircleBarRenderer(paint, 32, true);
-    mVisualizerView.addRenderer(circleBarRenderer);
-  }
 
-  private void addCircleRenderer()
-  {
-    Paint paint = new Paint();
-    paint.setStrokeWidth(3f);
-    paint.setAntiAlias(true);
-    paint.setColor(Color.argb(255, 222, 92, 143));
-    CircleRenderer circleRenderer = new CircleRenderer(paint, true);
-    mVisualizerView.addRenderer(circleRenderer);
-  }
-
-  private void addLineRenderer()
-  {
-    Paint linePaint = new Paint();
-    linePaint.setStrokeWidth(1f);
-    linePaint.setAntiAlias(true);
-    linePaint.setColor(Color.argb(88, 0, 128, 255));
-
-    Paint lineFlashPaint = new Paint();
-    lineFlashPaint.setStrokeWidth(5f);
-    lineFlashPaint.setAntiAlias(true);
-    lineFlashPaint.setColor(Color.argb(188, 255, 255, 255));
-    LineRenderer lineRenderer = new LineRenderer(linePaint, lineFlashPaint, true);
-    mVisualizerView.addRenderer(lineRenderer);
-  }
 
   // Actions for buttons defined in xml
   public void startPressed(View view) throws IllegalStateException, IOException
@@ -176,13 +140,20 @@ public class MainActivity extends Activity {
 
     // Start with just bar renderer
     addBarGraphRenderers();
-    addCircleBarRenderer();
+   // addCircleBarRenderer();
+    System.out.println("Game is about to run...");
+    //mVisualizerView.play();
+    System.out.println("Game is running...");
    /* if(mPlayer.isPlaying())
     {
       return;
     }
     mPlayer.prepare();
     mPlayer.start();*/
+
+
+   //game= new VisualizerView(this);
+
   }
 
   public void stopPressed(View view)
@@ -195,20 +166,7 @@ public class MainActivity extends Activity {
     addBarGraphRenderers();
   }
 
-  public void circlePressed(View view)
-  {
-    addCircleRenderer();
-  }
 
-  public void circleBarPressed(View view)
-  {
-    addCircleBarRenderer();
-  }
-
-  public void linePressed(View view)
-  {
-    addLineRenderer();
-  }
 
   public void clearPressed(View view)
   {
