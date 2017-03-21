@@ -14,7 +14,7 @@ import android.view.MotionEvent;
 
 public class GameState {
     private Canvas c;
-    private boolean isTouch = false;
+    private boolean aiState = false;
 
     //screen width and height 1200, 4000
     //final int _screenWidth = 1200;
@@ -48,7 +48,9 @@ public class GameState {
     }
 
     //The update method
-    public void update() {
+    public void update(Boolean AI) {
+
+        aiState=AI;
 
         _ballX += _ballVelocityX;
         _ballY += _ballVelocityY;
@@ -72,6 +74,11 @@ public class GameState {
                 && _ballX > rightBatX)
             _ballVelocityX *= -1;
             _batSpeed++;
+
+        //AI
+        if (aiState){
+            rightBatY=_ballY;
+        }
 
 
     }

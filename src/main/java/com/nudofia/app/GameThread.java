@@ -31,7 +31,7 @@ public class GameThread extends Thread {
         {
             //Canvas c= new Canvas();
             //Canvas canvas = _surfaceHolder.lockCanvas();
-            _state.update();
+            _state.update(false);
             System.out.println("It should have updated...");
             _state.draw(_surfaceHolder,_paint);
            // _surfaceHolder.unlockCanvasAndPost(canvas);

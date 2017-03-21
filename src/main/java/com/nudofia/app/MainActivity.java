@@ -27,8 +27,9 @@ public class MainActivity extends Activity {
   private MediaPlayer mPlayer;
   private MediaPlayer mSilentPlayer;  /* to avoid tunnel player issue */
   private VisualizerView mVisualizerView;
-  private GameThread gamethr;
+  //private GameThread gamethr;
   private VisualizerView game;
+  private boolean ai;
 
 
   /** Called when the activity is first created. */
@@ -134,9 +135,11 @@ public class MainActivity extends Activity {
   public void startPressed(View view) throws IllegalStateException, IOException
   {
     setContentView(R.layout.main);
+    ai=false;
 
     mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
     mVisualizerView.link(mPlayer);
+    mVisualizerView.play(ai);
 
     // Start with just bar renderer
     addBarGraphRenderers();
@@ -153,6 +156,34 @@ public class MainActivity extends Activity {
 
 
    //game= new VisualizerView(this);
+
+  }
+
+
+  public void aiPressed(View view) throws IllegalStateException, IOException
+  {
+    setContentView(R.layout.main);
+    ai=true;
+
+    mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
+    mVisualizerView.link(mPlayer);
+    mVisualizerView.play(ai);
+
+    // Start with just bar renderer
+    addBarGraphRenderers();
+    // addCircleBarRenderer();
+    System.out.println("Game is about to run...");
+    //mVisualizerView.play();
+    System.out.println("Game is running...");
+   /* if(mPlayer.isPlaying())
+    {
+      return;
+    }
+    mPlayer.prepare();
+    mPlayer.start();*/
+
+
+    //game= new VisualizerView(this);
 
   }
 

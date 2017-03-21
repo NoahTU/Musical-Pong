@@ -51,6 +51,7 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
   private Context viewcon;
   private Canvas gcanvas;
   private GameState _state;
+  private boolean AI=false;
 
   private Set<Renderer> mRenderers;
 
@@ -61,6 +62,7 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
   {
     super(context, attrs);
     init();
+
   }
 
   public VisualizerView(Context context, AttributeSet attrs)
@@ -96,9 +98,10 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
   }
 
 
-  /*public void play(){
-    _thread = new GameThread(gcanvas,viewcon, new Handler());
-  }*/
+ public void play(Boolean bool){
+    AI=bool;
+
+  }
 
   /**
    * Links the visualizer to a player
@@ -106,6 +109,7 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
    */
   public void link(MediaPlayer player)
   {
+
     if(player == null)
     {
       throw new NullPointerException("Cannot link to null MediaPlayer");
@@ -218,7 +222,7 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
 
     mRect.set(0, 0, getWidth(), getHeight());
 
-    _state.update();
+    _state.update(AI);
     _state.draw(canvas,mFlashPaint);
 
 

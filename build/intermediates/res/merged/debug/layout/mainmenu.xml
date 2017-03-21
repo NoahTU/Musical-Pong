@@ -4,15 +4,24 @@
     android:layout_height="match_parent">
 
     <Button
-        android:text="Start"
+        android:text="1v1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="startPressed"
         android:id="@+id/start" />
 
     <Button
-        android:text="Option"
+        android:text="1vAI"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="aiPressed"
         android:id="@+id/button2" />
+
+    <Button
+        android:text="Change Background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="changePressed"
+        android:id="@+id/button" />
+
 </LinearLayout>

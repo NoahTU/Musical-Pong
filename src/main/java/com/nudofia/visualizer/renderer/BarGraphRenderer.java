@@ -36,7 +36,7 @@ public class BarGraphRenderer extends Renderer
     mDivisions = divisions;
     mPaint = paint;
     mTop = top;
-    state = new GameState();
+    //state = new GameState(false);
   }
 
   @Override
@@ -62,23 +62,23 @@ public class BarGraphRenderer extends Renderer
       {
         mFFTPoints[i * 4 + 1] = 0;
 
-        state.barHitL(0);
-        state.barHitU(0);
+       // state.barHitL(0);
+       // state.barHitU(0);
 
         mFFTPoints[i * 4 + 3] = (dbValue * 2 - 10)*15;
-        state.barHitL(((dbValue * 2 - 10)*15)-getScreenHeight());
-        state.barHitU((dbValue * 2 - 10)*15);
+       // state.barHitL(((dbValue * 2 - 10)*15)-getScreenHeight());
+       // state.barHitU((dbValue * 2 - 10)*15);
       }
       else
       {
         mFFTPoints[i * 4 + 1] = rect.height()*17;
 
-        state.barHitL(rect.height()*17);
-        state.barHitU((rect.height()*17)-getScreenHeight());
+       // state.barHitL(rect.height()*17);
+       // state.barHitU((rect.height()*17)-getScreenHeight());
 
         mFFTPoints[i * 4 + 3] = rect.height() - (dbValue * 2 - 10)*15;
-        state.barHitL((rect.height() - (dbValue * 2 - 10)*15)*17);
-        state.barHitU((rect.height() - (dbValue * 2 - 10)*15)-getScreenHeight());
+       // state.barHitL((rect.height() - (dbValue * 2 - 10)*15)*17);
+        //state.barHitU((rect.height() - (dbValue * 2 - 10)*15)-getScreenHeight());
       }
     }
 
