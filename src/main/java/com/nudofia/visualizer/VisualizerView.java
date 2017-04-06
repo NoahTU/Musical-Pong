@@ -33,6 +33,7 @@ import android.view.View;
 import com.nudofia.app.GameState;
 import com.nudofia.app.GameThread;
 import com.nudofia.visualizer.renderer.Renderer;
+import com.nudofia.visualizer.renderer.BarGraphRenderer;
 
 /**
  * A class that draws visualizations of data received from a
@@ -52,6 +53,10 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
   private Canvas gcanvas;
   private GameState _state;
   private boolean AI=false;
+  private int upp=0, low=0;
+  private int firsti=0, secondi=0;
+  private BarGraphRenderer barGraphRendererBottom;
+  private BarGraphRenderer barGraphRendererTop;
 
   private Set<Renderer> mRenderers;
 
@@ -103,6 +108,10 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
 
   }
 
+    public void barhits( int up, int low){
+
+    }
+
   /**
    * Links the visualizer to a player
    * @param player - MediaPlayer instance to link to
@@ -152,12 +161,28 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
     });
   }
 
-  public void addRenderer(Renderer renderer)
+  public void addRenderer()
   {
-    if(renderer != null)
+      Paint paint = new Paint();
+      paint.setStrokeWidth(50f); //50f
+      paint.setAntiAlias(true);
+      paint.setColor(Color.argb(200, 56, 138, 252));
+      barGraphRendererBottom = new BarGraphRenderer(17, paint, false);
+      mRenderers.add(barGraphRendererBottom);
+      //up=barGraphRendererBottom.getHi();
+
+      Paint paint2 = new Paint();
+      paint2.setStrokeWidth(50f);
+      paint2.setAntiAlias(true);
+      paint2.setColor(Color.argb(200, 181, 111, 233));
+      barGraphRendererTop = new BarGraphRenderer(17, paint2, true);
+      mRenderers.add(barGraphRendererTop);
+      //low=barGraphRendererBottom.getHi();
+    /*if(renderer != null)
     {
       mRenderers.add(renderer);
-    }
+        //renderer.getHi();
+    }*/
   }
 
   public void clearRenderers()
@@ -219,11 +244,17 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
 
 
 
-
     mRect.set(0, 0, getWidth(), getHeight());
 
     _state.update(AI);
     _state.draw(canvas,mFlashPaint);
+      low=barGraphRendererBottom.getLo();
+      upp=barGraphRendererTop.getHi();
+      firsti=barGraphRendererTop.getTopi();
+      secondi=barGraphRendererBottom.getLowi();
+      _state.barHitL(low, secondi);
+      _state.barHitU(upp, firsti);
+
 
 
 
@@ -245,6 +276,8 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
       for(Renderer r : mRenderers)
       {
         r.render(mCanvas, audioData, mRect);
+       // up=mRenderers.getHi();
+        //low=r.getL();
       }
     }
 
@@ -291,8 +324,8 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
       case MotionEvent.ACTION_DOWN:
         X = (int) event.getX();
         Y = (int) event.getY();
-        System.out.println("X is: "+X);
-        System.out.println("Y is: "+Y);
+        //System.out.println("X is: "+X);
+       // System.out.println("Y is: "+Y);
         if (X<getScreenWidth()/2&& Y>getScreenHeight()/2){
           _state.movePaddleLDown();
         }

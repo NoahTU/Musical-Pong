@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 public class GameState {
     private Canvas c;
     private boolean aiState = false;
+    private int convertedone=0, convertedtwo=0;
 
     //screen width and height 1200, 4000
     //final int _screenWidth = 1200;
@@ -84,24 +85,30 @@ public class GameState {
     }
 
 
-    public void barHitU (int barY) {
+    public void barHitU (int barY, int i) {
 
+        convertedone=i*69;
         //System.out.println("Hit Upper");
+        System.out.println("UPPER Y: "+barY);
+        System.out.println("UPPER x: "+i);
 
         if (barY<_ballY){
             //System.out.println("HIIIIIITTT");
             _ballVelocityY *= -1;
+            _ballY += _ballVelocityY;
         }
 
     }
 
-    public void barHitL (int barY) {
+    public void barHitL (int barY, int ii) {
         //System.out.println("Hit Lower");
+        //System.out.println("LOWER: "+barY);
 
-        if (barY<_ballY){
+        /*if (barY<_ballY){
             //System.out.println("HIIIIIITTT");
             _ballVelocityY *= -1;
-        }
+            _ballY += _ballVelocityY;
+        }*/
 
     }
 

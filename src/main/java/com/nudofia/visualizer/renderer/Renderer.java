@@ -17,6 +17,7 @@ abstract public class Renderer
   // Have these as members, so we don't have to re-create them each time
   protected float[] mPoints;
   protected float[] mFFTPoints;
+  public int x;
   public Renderer()
   {
   }
@@ -69,5 +70,8 @@ abstract public class Renderer
     }
 
     onRender(canvas, data, rect);
+  }
+  public int getH() {
+    return x;
   }
 }

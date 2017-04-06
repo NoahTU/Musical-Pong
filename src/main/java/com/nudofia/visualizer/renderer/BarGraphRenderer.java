@@ -15,12 +15,17 @@ import com.nudofia.app.GameState;
 import com.nudofia.visualizer.AudioData;
 import com.nudofia.visualizer.FFTData;
 
+import static java.util.logging.Logger.global;
+
 public class BarGraphRenderer extends Renderer
 {
   private int mDivisions;
   private Paint mPaint;
   private boolean mTop;
   private GameState state;
+  public int x=0, ii=0;
+  public int y=0, iii=0;
+ // global int yb;
 
   /**
    * Renders the FFT data as a series of lines, in histogram form
@@ -49,8 +54,8 @@ public class BarGraphRenderer extends Renderer
   public void onRender(Canvas canvas, FFTData data, Rect rect)
   {
     int test= 10;
-    //data.bytes.length / mDivisions; i++
-    for (int i = 1; i < (data.bytes.length/2) / mDivisions; i++) {
+    //data.bytes.length / mDivisions; i++         (data.bytes.length/2) /
+    for (int i = 1; i < mDivisions; i++) {
       mFFTPoints[i * 4] = i * 4 * mDivisions;
       mFFTPoints[i * 4 + 2] = i * 4 * mDivisions;
       byte rfk = data.bytes[mDivisions * i];
@@ -64,23 +69,31 @@ public class BarGraphRenderer extends Renderer
 
        // state.barHitL(0);
        // state.barHitU(0);
+        x=0;
 
         mFFTPoints[i * 4 + 3] = (dbValue * 2 - 10)*15;
-       // state.barHitL(((dbValue * 2 - 10)*15)-getScreenHeight());
-       // state.barHitU((dbValue * 2 - 10)*15);
+       //state.barHitL(((dbValue * 2 - 10)*15)-getScreenHeight());
+       //state.barHitU((dbValue * 2 - 10)*15);
+        //x=(dbValue * 2 - 10)*15;
+        x=(dbValue * 2 - 10)*15;;
+        ii=i;
       }
       else
       {
         mFFTPoints[i * 4 + 1] = rect.height()*17;
+        y=rect.height()*17;
 
-       // state.barHitL(rect.height()*17);
-       // state.barHitU((rect.height()*17)-getScreenHeight());
+      // state.barHitL(rect.height()*17);
+      // state.barHitU((rect.height()*17)-getScreenHeight());
 
         mFFTPoints[i * 4 + 3] = rect.height() - (dbValue * 2 - 10)*15;
        // state.barHitL((rect.height() - (dbValue * 2 - 10)*15)*17);
-        //state.barHitU((rect.height() - (dbValue * 2 - 10)*15)-getScreenHeight());
+       // state.barHitU((rect.height() - (dbValue * 2 - 10)*15)-getScreenHeight());
+        y=rect.height() - (dbValue * 2 - 10)*15;
+        iii=i;
       }
     }
+
 
     canvas.drawLines(mFFTPoints, mPaint);
   }
@@ -90,5 +103,17 @@ public class BarGraphRenderer extends Renderer
 
   public static int getScreenHeight() {
     return Resources.getSystem().getDisplayMetrics().heightPixels;
+  }
+  public int getHi() {
+    return x;
+}
+  public int getLo() {
+    return y;
+  }
+  public int getTopi() {
+    return ii;
+  }
+  public int getLowi() {
+    return iii;
   }
 }

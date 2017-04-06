@@ -30,6 +30,7 @@ public class MainActivity extends Activity {
   //private GameThread gamethr;
   private VisualizerView game;
   private boolean ai;
+  private int up=0, low=0;
 
 
   /** Called when the activity is first created. */
@@ -112,7 +113,7 @@ public class MainActivity extends Activity {
   }
 
   // Methods for adding renderers to visualizer
-  private void addBarGraphRenderers()
+  /*private void addBarGraphRenderers()
   {
     Paint paint = new Paint();
     paint.setStrokeWidth(50f);
@@ -120,6 +121,7 @@ public class MainActivity extends Activity {
     paint.setColor(Color.argb(200, 56, 138, 252));
     BarGraphRenderer barGraphRendererBottom = new BarGraphRenderer(16, paint, false);
     mVisualizerView.addRenderer(barGraphRendererBottom);
+    up=barGraphRendererBottom.getHi();
 
     Paint paint2 = new Paint();
     paint2.setStrokeWidth(50f);
@@ -127,7 +129,8 @@ public class MainActivity extends Activity {
     paint2.setColor(Color.argb(200, 181, 111, 233));
     BarGraphRenderer barGraphRendererTop = new BarGraphRenderer(16, paint2, true);
     mVisualizerView.addRenderer(barGraphRendererTop);
-  }
+    low=barGraphRendererBottom.getHi();
+  }*/
 
 
 
@@ -142,7 +145,7 @@ public class MainActivity extends Activity {
     mVisualizerView.play(ai);
 
     // Start with just bar renderer
-    addBarGraphRenderers();
+    mVisualizerView.addRenderer();
    // addCircleBarRenderer();
     System.out.println("Game is about to run...");
     //mVisualizerView.play();
@@ -170,7 +173,7 @@ public class MainActivity extends Activity {
     mVisualizerView.play(ai);
 
     // Start with just bar renderer
-    addBarGraphRenderers();
+    mVisualizerView.addRenderer();
     // addCircleBarRenderer();
     System.out.println("Game is about to run...");
     //mVisualizerView.play();
@@ -192,10 +195,7 @@ public class MainActivity extends Activity {
     mPlayer.stop();
   }
 
-  public void barPressed(View view)
-  {
-    addBarGraphRenderers();
-  }
+
 
 
 

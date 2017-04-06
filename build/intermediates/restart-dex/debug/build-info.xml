@@ -5,32 +5,32 @@
     density="xhdpi"
     format="8"
     plugin-version="2.2.3"
-    timestamp="4487506428486"
+    timestamp="392696732289916"
     token="6409436621953548132"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="455" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="55" />
     <task
         name="verifier"
-        duration="0" />
+        duration="1" />
 
     <build
-        timestamp="4077019648109"
+        timestamp="392639470605039"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="F:\P\visualizer-pong-master\build\outputs\apk\visualizer-pong-master-debug.apk"
             type="MAIN" />
     </build>
     <build
-        timestamp="4487506428486"
+        timestamp="392696732289916"
         verifier="COLD_SWAP_REQUESTED" />
     <build
         timestamp="676580530018906"
