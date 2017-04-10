@@ -25,6 +25,8 @@ public class BarGraphRenderer extends Renderer
   private GameState state;
   public int x=0, ii=0;
   public int y=0, iii=0;
+  public int[] topArray = new int[17];
+  public int[] botArray = new int[17];
  // global int yb;
 
   /**
@@ -63,25 +65,28 @@ public class BarGraphRenderer extends Renderer
       float magnitude = (rfk * rfk + ifk * ifk);
       int dbValue = (int) (10 * Math.log10(magnitude));
 
+      //System.out.println("test i: "+i);
+
+      //System.out.println("I: "+i);
       if(mTop)
       {
         mFFTPoints[i * 4 + 1] = 0;
 
        // state.barHitL(0);
        // state.barHitU(0);
-        x=0;
+        topArray[i]=0;
 
         mFFTPoints[i * 4 + 3] = (dbValue * 2 - 10)*15;
        //state.barHitL(((dbValue * 2 - 10)*15)-getScreenHeight());
        //state.barHitU((dbValue * 2 - 10)*15);
         //x=(dbValue * 2 - 10)*15;
-        x=(dbValue * 2 - 10)*15;;
+        topArray[i]=(dbValue * 2 - 10)*15;;
         ii=i;
       }
       else
       {
         mFFTPoints[i * 4 + 1] = rect.height()*17;
-        y=rect.height()*17;
+        botArray[i]=rect.height()*17;
 
       // state.barHitL(rect.height()*17);
       // state.barHitU((rect.height()*17)-getScreenHeight());
@@ -89,9 +94,10 @@ public class BarGraphRenderer extends Renderer
         mFFTPoints[i * 4 + 3] = rect.height() - (dbValue * 2 - 10)*15;
        // state.barHitL((rect.height() - (dbValue * 2 - 10)*15)*17);
        // state.barHitU((rect.height() - (dbValue * 2 - 10)*15)-getScreenHeight());
-        y=rect.height() - (dbValue * 2 - 10)*15;
+        botArray[i]=rect.height() - (dbValue * 2 - 10)*15;
         iii=i;
       }
+      //canvas.drawLines(mFFTPoints, mPaint);
     }
 
 
@@ -104,11 +110,11 @@ public class BarGraphRenderer extends Renderer
   public static int getScreenHeight() {
     return Resources.getSystem().getDisplayMetrics().heightPixels;
   }
-  public int getHi() {
-    return x;
+  public int[] getHi() {
+    return topArray;
 }
-  public int getLo() {
-    return y;
+  public int[] getLo() {
+    return botArray;
   }
   public int getTopi() {
     return ii;

@@ -16,6 +16,9 @@ import android.graphics.Paint;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.nudofia.utils.TunnelPlayerWorkaround;
 import com.nudofia.visualizer.R;
@@ -30,7 +33,8 @@ public class MainActivity extends Activity {
   //private GameThread gamethr;
   private VisualizerView game;
   private boolean ai;
-  private int up=0, low=0;
+  private int one=0, two=0;
+  private String url="nope";
 
 
   /** Called when the activity is first created. */
@@ -138,9 +142,20 @@ public class MainActivity extends Activity {
   public void startPressed(View view) throws IllegalStateException, IOException
   {
     setContentView(R.layout.main);
+
     ai=false;
 
+    if (url.equals("nope")){
+      System.out.println("URL ISNT THERE");
+    }
+
+    else{
+      System.out.println("URL IS THERE");
+      new DownloadImageTask((ImageView) findViewById(R.id.imageView))
+              .execute(url);
+    }
     mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
+
     mVisualizerView.link(mPlayer);
     mVisualizerView.play(ai);
 
@@ -150,6 +165,10 @@ public class MainActivity extends Activity {
     System.out.println("Game is about to run...");
     //mVisualizerView.play();
     System.out.println("Game is running...");
+    //while (!mVisualizerView.getWinStatus()){
+
+
+    //}
    /* if(mPlayer.isPlaying())
     {
       return;
@@ -166,7 +185,15 @@ public class MainActivity extends Activity {
   public void aiPressed(View view) throws IllegalStateException, IOException
   {
     setContentView(R.layout.main);
+
     ai=true;
+    if (url.equals("nope")){
+      System.out.println("URL IS THERE");
+    }
+
+    else{
+      System.out.println("URL ISNT THERE");
+    }
 
     mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
     mVisualizerView.link(mPlayer);
@@ -178,6 +205,8 @@ public class MainActivity extends Activity {
     System.out.println("Game is about to run...");
     //mVisualizerView.play();
     System.out.println("Game is running...");
+
+
    /* if(mPlayer.isPlaying())
     {
       return;
@@ -189,6 +218,17 @@ public class MainActivity extends Activity {
     //game= new VisualizerView(this);
 
   }
+  public void changePressed(View view) throws IllegalStateException, IOException{
+
+
+
+    EditText txtDescription =
+            (EditText) findViewById(R.id.txt);
+    url = txtDescription.getText().toString();
+
+
+  }
+
 
   public void stopPressed(View view)
   {
@@ -203,4 +243,6 @@ public class MainActivity extends Activity {
   {
     mVisualizerView.clearRenderers();
   }
+
+
 }

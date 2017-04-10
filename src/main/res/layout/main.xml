@@ -12,17 +12,49 @@
         android:layout_weight="1"
         android:background="#000" >
 
+        <ImageView
+            android:src="@drawable/bg"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/imageView" />
         <com.nudofia.visualizer.VisualizerView
             android:id="@+id/visualizerView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" >
         </com.nudofia.visualizer.VisualizerView>
+
+
+
     </FrameLayout>
+
+
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0" >
+
+
+
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="0.5"
+            android:onClick="startPressed"
+            android:text="Return" >
+        </Button>
+
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="0.5"
+            android:onClick="stopPressed"
+            android:text="Pause" >
+        </Button>
 
 
     </LinearLayout>

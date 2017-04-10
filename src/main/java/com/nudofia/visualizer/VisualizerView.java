@@ -29,6 +29,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.nudofia.app.GameState;
 import com.nudofia.app.GameThread;
@@ -52,8 +53,10 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
   private Context viewcon;
   private Canvas gcanvas;
   private GameState _state;
-  private boolean AI=false;
+  private boolean AI=false, w=false;
   private int upp=0, low=0;
+    private int[] top = new int[17];
+    private int[] bot = new int[17];
   private int firsti=0, secondi=0;
   private BarGraphRenderer barGraphRendererBottom;
   private BarGraphRenderer barGraphRendererTop;
@@ -62,6 +65,7 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
 
   private Paint mFlashPaint = new Paint();
   private Paint mFadePaint = new Paint();
+   //public TextView tone= (TextView) findViewById(R.id.tvv), ttwo=(TextView) findViewById(R.id.tvvv);
 
   public VisualizerView(Context context, AttributeSet attrs, int defStyle)
   {
@@ -75,7 +79,9 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
     //super(context, attrs);
     this(context, attrs, 0);
     viewcon= context;
+
     _state = new GameState();
+
 
     //So we can listen for events...
     //SurfaceHolder holder = getHolder();
@@ -245,15 +251,22 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
 
 
     mRect.set(0, 0, getWidth(), getHeight());
+      //setContentView(R.layout.main);
 
     _state.update(AI);
+
+      upp=_state.getOneS();
+      low=_state.getTwoS();
+      w=_state.getWinStat();
+      /*tone.setText(" "+upp);
+      ttwo.setText(" "+low);*/
     _state.draw(canvas,mFlashPaint);
-      low=barGraphRendererBottom.getLo();
+     /* low=barGraphRendererBottom.getLo();
       upp=barGraphRendererTop.getHi();
       firsti=barGraphRendererTop.getTopi();
       secondi=barGraphRendererBottom.getLowi();
       _state.barHitL(low, secondi);
-      _state.barHitU(upp, firsti);
+      _state.barHitU(upp, firsti);*/
 
 
 
@@ -276,6 +289,12 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
       for(Renderer r : mRenderers)
       {
         r.render(mCanvas, audioData, mRect);
+          top=barGraphRendererBottom.getLo();
+          bot=barGraphRendererTop.getHi();
+          firsti=barGraphRendererTop.getTopi();
+          secondi=barGraphRendererBottom.getLowi();
+          _state.barHitL(bot);
+          _state.barHitU(top);
        // up=mRenderers.getHi();
         //low=r.getL();
       }
@@ -287,9 +306,21 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
       for(Renderer r : mRenderers)
       {
         r.render(mCanvas, fftData, mRect);
+          top=barGraphRendererBottom.getLo();
+          bot=barGraphRendererTop.getHi();
+          firsti=barGraphRendererTop.getTopi();
+          secondi=barGraphRendererBottom.getLowi();
+          _state.barHitL(bot);
+          _state.barHitU(top);
       }
     }
 
+
+      /*upp=_state.getOneS();
+      low=_state.getTwoS();
+      System.out.println(upp);
+      tone.setText(""+upp);
+      ttwo.setText(""+low);*/
     // Fade out old contents
     mCanvas.drawPaint(mFadePaint);
 
@@ -304,7 +335,19 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
     gcanvas= canvas;
   }
 
-  public static int getScreenWidth() {
+  public int getScore1(){
+      return upp;
+  }
+
+    public int getScore2(){
+        return low;
+    }
+
+    public boolean getWinStatus(){
+        return w;
+    }
+
+    public static int getScreenWidth() {
     return Resources.getSystem().getDisplayMetrics().widthPixels;
   }
 
