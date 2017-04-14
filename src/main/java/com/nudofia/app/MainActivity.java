@@ -11,14 +11,18 @@ package com.nudofia.app;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.media.audiofx.Visualizer;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nudofia.utils.TunnelPlayerWorkaround;
 import com.nudofia.visualizer.R;
@@ -33,8 +37,11 @@ public class MainActivity extends Activity {
   //private GameThread gamethr;
   private VisualizerView game;
   private boolean ai;
-  private int one=0, two=0;
+  private int one=0, two=0, state=0;
   private String url="nope";
+  private boolean goBlack=true, musicNotPlaying=true;
+  private int REQ_CODE_PICK_SOUNDFILE = 1;
+  private Uri audioFileUri;
 
 
   /** Called when the activity is first created. */
@@ -68,9 +75,9 @@ public class MainActivity extends Activity {
 
   private void init()
   {
-    mPlayer = MediaPlayer.create(this, R.raw.mansion);
-    mPlayer.setLooping(true);
-    mPlayer.start();
+    //mPlayer = MediaPlayer.create(this, null);
+    //mPlayer.setLooping(true);
+    //mPlayer.start();
 
     // We need to link the visualizer view to the media player so that
     // it displays something
@@ -84,7 +91,7 @@ public class MainActivity extends Activity {
 
   private void cleanUp()
   {
-    if (mPlayer != null)
+    /*if (mPlayer != null)
     {
       mVisualizerView.release();
       mPlayer.release();
@@ -95,7 +102,7 @@ public class MainActivity extends Activity {
     {
       mSilentPlayer.release();
       mSilentPlayer = null;
-    }
+    }*/
   }
 
   // Workaround (for Galaxy S4)
@@ -147,6 +154,7 @@ public class MainActivity extends Activity {
 
     if (url.equals("nope")){
       System.out.println("URL ISNT THERE");
+      goBlack=false;
     }
 
     else{
@@ -156,8 +164,13 @@ public class MainActivity extends Activity {
     }
     mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
 
+    if (musicNotPlaying){
+      System.out.println("IT'S THE BOOLEAN");
+    mPlayer = MediaPlayer.create(this, R.raw.mansion);
+    mPlayer.setLooping(true);}
+    mPlayer.start();
     mVisualizerView.link(mPlayer);
-    mVisualizerView.play(ai);
+    mVisualizerView.play(ai, goBlack);
 
     // Start with just bar renderer
     mVisualizerView.addRenderer();
@@ -189,6 +202,7 @@ public class MainActivity extends Activity {
     ai=true;
     if (url.equals("nope")){
       System.out.println("URL IS THERE");
+      goBlack=false;
     }
 
     else{
@@ -196,8 +210,13 @@ public class MainActivity extends Activity {
     }
 
     mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
+
+    if (musicNotPlaying){
+      mPlayer = MediaPlayer.create(this, R.raw.mansion);
+      mPlayer.setLooping(true);}
+
     mVisualizerView.link(mPlayer);
-    mVisualizerView.play(ai);
+    mVisualizerView.play(ai, goBlack);
 
     // Start with just bar renderer
     mVisualizerView.addRenderer();
@@ -227,14 +246,103 @@ public class MainActivity extends Activity {
     url = txtDescription.getText().toString();
 
 
+
   }
 
 
-  public void stopPressed(View view)
+  public void stopPressed(View view) throws IllegalStateException, IOException
   {
-    mPlayer.stop();
+    //setContentView(R.layout.mainmenu);
+    if (state==0){
+      state++;
+      mVisualizerView.mPause(state);
+      //mPlayer.stop();
+    }
+    else{
+      state--;
+      mVisualizerView.mPause(state);
+    }
+    //mPlayer.stop();
   }
 
+
+  public void returnPressed (View view) throws IllegalStateException, IOException{
+    //onDestroy();
+    //cleanUp();
+    mVisualizerView.clearRenderers();
+    //init();
+    //super.onPause();
+    //super.onDestroy();
+    //super.onResume();
+    setContentView(R.layout.mainmenu);
+    mVisualizerView.upstat();
+    musicNotPlaying=true;
+    goBlack=true;
+    //mPlayer = MediaPlayer.create(this, R.raw.mansion);
+   // mPlayer.setLooping(true);
+    //mPlayer.start();
+    //onDestroy();
+    //init();
+    //cleanUp();
+
+  }
+
+  public void musicPressed (View view)throws IllegalStateException, IOException{
+
+    Intent intent;
+    intent = new Intent();
+    intent.setType("audio/mpeg");
+    intent.setAction(Intent.ACTION_GET_CONTENT);
+    startActivityForResult(Intent.createChooser(intent, "Open Audio file"), REQ_CODE_PICK_SOUNDFILE);
+  }
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == REQ_CODE_PICK_SOUNDFILE && resultCode == Activity.RESULT_OK){
+      //if ((data != null) && (data.getData() != null)){
+        audioFileUri = data.getData();
+
+        musicNotPlaying=false;
+
+       /* try {
+          mPlayer.setDataSource(getApplicationContext(), audioFileUri);
+          mPlayer= MediaPlayer.create(this, audioFileUri);
+        } catch (IllegalArgumentException e) {
+          Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
+        } catch (SecurityException e) {
+          Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
+        } catch (IllegalStateException e) {
+          Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      try {
+        mPlayer.prepare();
+      } catch (IllegalStateException e) {
+        Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
+      } catch (IOException e) {
+        Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
+      }*/
+      //mPlayer.setLooping(true);
+      mPlayer= MediaPlayer.create(this, audioFileUri);
+      mPlayer.start();
+
+
+        // Now you can use that Uri to get the file path, or upload it, ...
+      //}
+    }
+  }
+
+  public void exitPressed (View view)throws IllegalStateException, IOException{
+
+    android.os.Process.killProcess(android.os.Process.myPid());
+    System.exit(1);
+    /*Intent intent = new Intent(Intent.ACTION_MAIN);
+    intent.addCategory(Intent.CATEGORY_HOME);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(intent);*/
+    //finish();
+  }
 
 
 

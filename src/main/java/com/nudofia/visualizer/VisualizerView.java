@@ -6,10 +6,14 @@
  */
 package com.nudofia.visualizer;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -22,6 +26,10 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.media.MediaPlayer;
 import android.media.audiofx.Visualizer;
+import android.media.AudioFormat;
+import android.media.AudioManager;
+import android.media.AudioTrack;
+import android.os.Build;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -30,6 +38,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nudofia.app.GameState;
 import com.nudofia.app.GameThread;
@@ -60,6 +69,10 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
   private int firsti=0, secondi=0;
   private BarGraphRenderer barGraphRendererBottom;
   private BarGraphRenderer barGraphRendererTop;
+    private int stat=1;
+    private Visualizer audioOutput = null;
+    private boolean gb=true;
+    List<String> permissions = new ArrayList<String>();
 
   private Set<Renderer> mRenderers;
 
@@ -108,9 +121,13 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
     mRenderers = new HashSet<Renderer>();
   }
 
+    public void upstat(){
+        stat--;
+    }
 
- public void play(Boolean bool){
+ public void play(Boolean bool, Boolean b){
     AI=bool;
+     gb=b;
 
   }
 
@@ -118,9 +135,13 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
 
     }
 
+
+
+
+
   /**
    * Links the visualizer to a player
-   * @param player - MediaPlayer instance to link to
+   * //@param player - MediaPlayer instance to link to
    */
   public void link(MediaPlayer player)
   {
@@ -129,10 +150,23 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
     {
       throw new NullPointerException("Cannot link to null MediaPlayer");
     }
+      //AudioTrack visualizedTrack = null;
+     // final int minBufferSize = AudioTrack.getMinBufferSize(Visualizer.getMaxCaptureRate(), AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_8BIT);
+      //visualizedTrack = new AudioTrack(AudioManager.STREAM_MUSIC, Visualizer.getMaxCaptureRate(), AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_8BIT, minBufferSize, AudioTrack.MODE_STREAM);
+      //visualizedTrack.play();
+      //mVisualizer = new Visualizer(visualizedTrack.getAudioSessionId());
+      //audioOutput = new Visualizer(visualizedTrack.getAudioSessionId());
+     // permissions.add(Manifest.permission.RECORD_AUDIO);
+      //audioOutput = new Visualizer(0);
+      mVisualizer = new Visualizer(player.getAudioSessionId());
 
     // Create the Visualizer object and attach it to our media player.
-    mVisualizer = new Visualizer(player.getAudioSessionId());
+    //mVisualizer = new Visualizer(player.getAudioSessionId());
+
     mVisualizer.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
+      //audioOutput.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
+
+
 
     // Pass through Visualizer data to VisualizerView
     Visualizer.OnDataCaptureListener captureListener = new Visualizer.OnDataCaptureListener()
@@ -155,14 +189,31 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
     mVisualizer.setDataCaptureListener(captureListener,
         Visualizer.getMaxCaptureRate() , true, true);
 
+
+      /*audioOutput.setDataCaptureListener(new Visualizer.OnDataCaptureListener() {
+          @Override
+          public void onWaveFormDataCapture(Visualizer visualizer, byte[] waveform, int samplingRate) {
+              updateVisualizer(waveform);
+          }
+
+          @Override
+          public void onFftDataCapture(Visualizer visualizer, byte[] fft, int samplingRate) {
+
+              updateVisualizerFFT(fft);
+          }
+      }, Visualizer.getMaxCaptureRate(), true, false);*/
+
+      //mVisualizer.setEnabled(true);
+      //mVisualizer.setEnabled(false);
     // Enabled Visualizer and disable when we're done with the stream
-    mVisualizer.setEnabled(true);
+
+   mVisualizer.setEnabled(true);
     player.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
     {
       @Override
       public void onCompletion(MediaPlayer mediaPlayer)
       {
-        mVisualizer.setEnabled(false);
+          mVisualizer.setEnabled(false);
       }
     });
   }
@@ -251,7 +302,11 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
 
 
     mRect.set(0, 0, getWidth(), getHeight());
+
       //setContentView(R.layout.main);
+      if(gb){
+      canvas.saveLayerAlpha(0, 0, getWidth(), getHeight(), 150,
+              Canvas.HAS_ALPHA_LAYER_SAVE_FLAG);}
 
     _state.update(AI);
 
@@ -335,6 +390,10 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
     gcanvas= canvas;
   }
 
+    public void mPause(int st){
+        _state.pause(st);
+    }
+
   public int getScore1(){
       return upp;
   }
@@ -354,6 +413,46 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
   public static int getScreenHeight() {
     return Resources.getSystem().getDisplayMetrics().heightPixels;
   }
+
+    /*@Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 1) {
+
+            boolean result = true;
+            for (int i = 0; i < permissions.length; i++) {
+                result = result && grantResults[i] == PackageManager.PERMISSION_GRANTED;
+            }
+            if (!result) {
+
+                //Toast.makeText(this, "..", Toast.LENGTH_LONG).show();
+                // askPermission();
+            } else {
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private boolean askPermission() {
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            int RECORD_AUDIO = checkSelfPermission(Manifest.permission.RECORD_AUDIO );
+
+            if (RECORD_AUDIO != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.RECORD_AUDIO);
+            }
+
+
+            if (!permissions.isEmpty()) {
+                requestPermissions(permissions.toArray(new String[permissions.size()]), 1);
+            } else
+                return false;
+        } else
+            return false;
+        return true;
+
+    }*/
 
   @Override
   public boolean onTouchEvent(MotionEvent event) {

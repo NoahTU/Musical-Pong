@@ -69,6 +69,7 @@ public class GameState {
             _ballY = ballstart;
             _batSpeed = 20;
             scoretwo++;
+            check(scoretwo);
 
         }
 
@@ -78,6 +79,7 @@ public class GameState {
             _ballY = ballstart;
             _batSpeed = 20;
             scoreone++;
+            check(scoreone);
 
         }
 
@@ -87,6 +89,7 @@ public class GameState {
             _ballVelocityX *= -1;
         _ballVelocityY *= -1;//Collisions with the bats
             _batSpeed++;
+
 
         if(_ballY > rightBatY && _ballY < rightBatY+_batHeight
                 && _ballX > rightBatX)
@@ -102,8 +105,24 @@ public class GameState {
 
     }
 
+    public void pause (int s){
+        int saveball=_ballVelocityY;
+        if (s==1){
+            saveball=_ballVelocityY;
+            _ballVelocityY=0;
+            _ballVelocityX=0;
+            System.out.println("SAVED: "+saveball);
+        }
+        else{
+            System.out.println("EXECUTING: "+saveball);
+            _ballVelocityY=saveball;
+            _ballVelocityX=saveball;
+            System.out.println("EXECUTED: "+_ballVelocityX);
+        }
+    }
+
     public void check (int didwin){
-        if (didwin>5){
+        if (didwin==1){
             win=true;
         }
     }
@@ -125,8 +144,8 @@ public class GameState {
         for (int i=0; i<tarray.length; i++)
         {
             convertedone=i*69;
-            System.out.println("Ball X: "+_ballX);
-            System.out.println("Ball Y: "+_ballY);
+            //System.out.println("Ball X: "+_ballX);
+            //System.out.println("Ball Y: "+_ballY);
             if (_ballX>convertedone-34&&_ballX<convertedone+34&&_ballY<tarray[i]){
                 ///System.out.println("YO");
                 if(_ballVelocityY>0){
@@ -190,18 +209,7 @@ public class GameState {
     //the draw method
     public void draw(Canvas canvas, Paint paint) {
 
-        if (scoreone>scoretwo) {
-            while (win) {
-                paint.setTextSize(40);
-                canvas.drawText("Player 1 Wins!", 10, 25, paint);
-            }
-        }
-        else{
-            while (win) {
-                paint.setTextSize(40);
-                canvas.drawText("Player Two Wins!", 10, 25, paint);
-            }
-        }
+
 
         c=canvas;
 
@@ -218,6 +226,29 @@ public class GameState {
         paint.setTextSize(60);
         canvas.drawText(Integer.toString(scoretwo), 10, 50, paint);
         canvas.drawText(Integer.toString(scoreone), 1100, 50, paint);
+
+        //check win
+        if (scoreone>scoretwo) {
+            if (win) {
+                paint.setTextSize(60);
+                canvas.drawText("Player 1 Wins!", 350, 600, paint);
+                //canvas.drawRGB(20, 20, 20);
+                /*while (win){
+                    System.out.println("PAUSED");
+                }*/
+            }
+        }
+        else{
+            if (win) {
+                paint.setTextSize(60);
+                canvas.drawText("Player Two Wins!", 350, 600, paint);
+                //canvas.drawRGB(20, 20, 20);
+                //wait(1000);
+                /*while (win) {
+                    System.out.println("PAUSED");
+                }*/
+            }
+        }
 
 //draw the bats
         canvas.drawRect(new Rect(leftBatX, leftBatY, leftBatX + _batLength,

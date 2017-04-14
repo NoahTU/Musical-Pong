@@ -32,4 +32,18 @@
         android:onClick="changePressed"
         android:id="@+id/button" />
 
+    <Button
+        android:text="Music Selection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="musicPressed"
+        android:id="@+id/music" />
+
+    <Button
+        android:text="Exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="exitPressed"
+        android:id="@+id/button3" />
+
 </LinearLayout>
