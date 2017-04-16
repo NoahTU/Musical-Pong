@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Fri Apr 14 18:51:48 CDT 2017
+#Sun Apr 16 03:17:52 CDT 2017
 2.base=F\:\\P\\visualizer-pong-master\\build\\intermediates\\res\\resources-debug.ap_
 5.file=F\:\\P\\visualizer-pong-master\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable\\bg.xml
 5.set=ANDROID_RESOURCE

@@ -253,15 +253,19 @@ public class MainActivity extends Activity {
   public void stopPressed(View view) throws IllegalStateException, IOException
   {
     //setContentView(R.layout.mainmenu);
+
     if (state==0){
       state++;
       mVisualizerView.mPause(state);
-      //mPlayer.stop();
+      mPlayer.pause();
     }
     else{
       state--;
+      mPlayer.start();
       mVisualizerView.mPause(state);
+
     }
+    System.out.println("STATE: "+state);
     //mPlayer.stop();
   }
 

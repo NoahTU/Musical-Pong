@@ -15,7 +15,8 @@ import android.view.MotionEvent;
 public class GameState {
     private Canvas c;
     private boolean aiState = false;
-    private int convertedone=0, convertedtwo=0;
+    private int convertedone=0, convertedtwo=0, saveball=0;
+    private int[] testingT= new int[17], testingB = new int[17];
 
     //screen width and height 1200, 4000
     //final int _screenWidth = 1200;
@@ -106,7 +107,6 @@ public class GameState {
     }
 
     public void pause (int s){
-        int saveball=_ballVelocityY;
         if (s==1){
             saveball=_ballVelocityY;
             _ballVelocityY=0;
@@ -122,7 +122,7 @@ public class GameState {
     }
 
     public void check (int didwin){
-        if (didwin==1){
+        if (didwin==10){
             win=true;
         }
     }
@@ -139,34 +139,24 @@ public class GameState {
 
     public void barHitU (int[] tarray) {
 
+        testingT=tarray;
         //convertedone=i*69;
         //System.out.println("Hit Upper");
         for (int i=0; i<tarray.length; i++)
         {
             convertedone=i*69;
-            //System.out.println("Ball X: "+_ballX);
-            //System.out.println("Ball Y: "+_ballY);
+            //System.out.println("Ball X: "+_ballX+" Ball Y: "+_ballY);
             if (_ballX>convertedone-34&&_ballX<convertedone+34&&_ballY<tarray[i]){
-                ///System.out.println("YO");
-                if(_ballVelocityY>0){
-                    System.out.println("YOOOOOOOOOOOOOOOOOOOOOO");
-                    //System.out.println("Ball X: "+_ballX);
-                    //System.out.println("Ball Y: "+_ballY);
-                    System.out.println("Bar X: "+convertedone);
-                    System.out.println("Bar Y: "+tarray[i]);
+                //System.out.println("HIT");
+                //if(_ballVelocityY>0){
+                    //System.out.println("BAR X: "+convertedone+" BAR Y: "+tarray[i]);
                     _ballVelocityY *= -1;
                     _ballY += _ballVelocityY;
-                }
+               // }
             }
-           // System.out.println("Y TOP BARS: "+tarray[i]);
-        }
-       // System.out.println("UPPER Y: "+_ballX);
 
-        /*if (barY<_ballY){
-            //System.out.println("HIIIIIITTT");
-            _ballVelocityY *= -1;
-            _ballY += _ballVelocityY;
-        }*/
+        }
+
 
     }
 
@@ -179,6 +169,28 @@ public class GameState {
             _ballVelocityY *= -1;
             _ballY += _ballVelocityY;
         }*/
+        testingB=barray;
+
+
+        for (int i=0; i<barray.length; i++)
+        {
+            convertedone=i*69;
+            System.out.println("Ball X: "+_ballX+" Ball Y: "+_ballY);
+            //System.out.println("Ball Y: "+_ballY);
+            if (_ballX>convertedone-34&&_ballX<convertedone+34&&_ballY>(1110-barray[i])){
+                System.out.println("HIT");
+                //if(_ballVelocityY>0){
+                //System.out.println("YOOOOOOOOOOOOOOOOOOOOOO");
+                //System.out.println("Ball X: "+_ballX);
+                //System.out.println("Ball Y: "+_ballY);
+                System.out.println("BAR X: "+convertedone+" BAR Y: "+barray[i]);
+                //System.out.println("BAR Y: "+tarray[i]);
+                _ballVelocityY *= -1;
+                _ballY += _ballVelocityY;
+                // }
+            }
+            // System.out.println("Y TOP BARS: "+tarray[i]);
+        }
 
     }
 
@@ -218,6 +230,18 @@ public class GameState {
 
 //set the colour
         paint.setARGB(200, 0, 200, 0);
+
+        //testing placeing for visualizer bar hits, will be applied to barHitU soon
+        convertedtwo=0;
+        for (int t=0; t< testingT.length; t++){
+
+            convertedtwo=(testingT[t]+1500)-(testingT[t]*2);
+            canvas.drawRect(new Rect(t*69,convertedtwo,(t*69)+10,convertedtwo+10), paint);
+        }
+        for (int t=0; t< testingB.length; t++){
+
+            canvas.drawRect(new Rect(t*69,testingT[t],(t*69)+10,testingT[t]+10), paint);
+        }
 
 //draw the ball
         canvas.drawRect(new Rect(_ballX,_ballY,_ballX + _ballSize,_ballY + _ballSize),

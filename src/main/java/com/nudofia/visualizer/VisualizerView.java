@@ -220,6 +220,7 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
 
   public void addRenderer()
   {
+      //bottom bars
       Paint paint = new Paint();
       paint.setStrokeWidth(50f); //50f
       paint.setAntiAlias(true);
@@ -228,6 +229,7 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
       mRenderers.add(barGraphRendererBottom);
       //up=barGraphRendererBottom.getHi();
 
+      //top bars
       Paint paint2 = new Paint();
       paint2.setStrokeWidth(50f);
       paint2.setAntiAlias(true);
@@ -348,13 +350,14 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
           bot=barGraphRendererTop.getHi();
           firsti=barGraphRendererTop.getTopi();
           secondi=barGraphRendererBottom.getLowi();
-          _state.barHitL(bot);
-          _state.barHitU(top);
+         // _state.barHitL(bot);
+          //_state.barHitU(top);
        // up=mRenderers.getHi();
         //low=r.getL();
       }
     }
 
+      int testforbottom=0;
     if (mFFTBytes != null) {
       // Render all FFT renderers
       FFTData fftData = new FFTData(mFFTBytes);
@@ -365,9 +368,11 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
           bot=barGraphRendererTop.getHi();
           firsti=barGraphRendererTop.getTopi();
           secondi=barGraphRendererBottom.getLowi();
-          _state.barHitL(bot);
+          testforbottom++;
+         // _state.barHitL(bot);
           _state.barHitU(top);
       }
+        System.out.println("testforbottom: "+testforbottom);
     }
 
 
