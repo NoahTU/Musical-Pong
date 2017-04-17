@@ -55,8 +55,6 @@ public class BarGraphRenderer extends Renderer
   @Override
   public void onRender(Canvas canvas, FFTData data, Rect rect)
   {
-    int test= 10;
-    //data.bytes.length / mDivisions; i++         (data.bytes.length/2) /
     for (int i = 1; i < mDivisions; i++) {
       mFFTPoints[i * 4] = i * 4 * mDivisions;
       mFFTPoints[i * 4 + 2] = i * 4 * mDivisions;
@@ -64,22 +62,12 @@ public class BarGraphRenderer extends Renderer
       byte ifk = data.bytes[mDivisions * i + 1];
       float magnitude = (rfk * rfk + ifk * ifk);
       int dbValue = (int) (10 * Math.log10(magnitude));
-
-      //System.out.println("test i: "+i);
-
-      //System.out.println("I: "+i);
       if(mTop)
       {
         mFFTPoints[i * 4 + 1] = 0;
-
-       // state.barHitL(0);
-       // state.barHitU(0);
         topArray[i]=0;
 
-        mFFTPoints[i * 4 + 3] = (dbValue * 2 - 10)*15;
-       //state.barHitL(((dbValue * 2 - 10)*15)-getScreenHeight());
-       //state.barHitU((dbValue * 2 - 10)*15);
-        //x=(dbValue * 2 - 10)*15;
+        mFFTPoints[i * 4 + 3] = (dbValue * 2 - 10)*15;//gets array of y axis points for gamestate to interact with
         topArray[i]=(dbValue * 2 - 10)*15;;
         ii=i;
       }
@@ -88,13 +76,8 @@ public class BarGraphRenderer extends Renderer
         mFFTPoints[i * 4 + 1] = rect.height()*17;
         botArray[i]=rect.height()*17;
 
-      // state.barHitL(rect.height()*17);
-      // state.barHitU((rect.height()*17)-getScreenHeight());
-
         mFFTPoints[i * 4 + 3] = rect.height() - (dbValue * 2 - 10)*15;
-       // state.barHitL((rect.height() - (dbValue * 2 - 10)*15)*17);
-       // state.barHitU((rect.height() - (dbValue * 2 - 10)*15)-getScreenHeight());
-        botArray[i]=rect.height() - (dbValue * 2 - 10)*15;
+        botArray[i]=rect.height() - (dbValue * 2 - 10)*15;//gets array of y axis points for gamestate to interact with
         iii=i;
       }
       //canvas.drawLines(mFFTPoints, mPaint);

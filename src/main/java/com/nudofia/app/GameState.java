@@ -18,7 +18,7 @@ public class GameState {
     private int convertedone=0, convertedtwo=0, saveball=0;
     private int[] testingT= new int[17], testingB = new int[17];
 
-    //screen width and height 1200, 4000
+    //screen width and height 1200, 4000 LEFT OVER FOR LATER USE
     //final int _screenWidth = 1200;
     //final int _screenHeight = 1130;
 
@@ -84,7 +84,7 @@ public class GameState {
 
         }
 
-        //Collisions with the bats _ballVelocityX *= -1
+        //Collisions with the bats
 
         if(_ballY > leftBatY && _ballY < leftBatY+_batHeight && _ballX < leftBatX)
             _ballVelocityX *= -1;
@@ -106,6 +106,7 @@ public class GameState {
 
     }
 
+    //pause game assets
     public void pause (int s){
         if (s==1){
             saveball=_ballVelocityY;
@@ -121,15 +122,18 @@ public class GameState {
         }
     }
 
+    //function used to check wins
     public void check (int didwin){
         if (didwin==10){
             win=true;
         }
     }
+    //give out win status to other classes
     public boolean getWinStat(){
         return win;
     }
 
+    //scores for updating in other classes
     public int getOneS(){
         return scoreone;
     }
@@ -137,6 +141,9 @@ public class GameState {
         return scoretwo;
     }
 
+
+
+    // functions used to have visualizer bars hit the balls, wip
     public void barHitU (int[] tarray) {
 
         testingT=tarray;
@@ -154,10 +161,7 @@ public class GameState {
                     _ballY += _ballVelocityY;
                // }
             }
-
         }
-
-
     }
 
     public void barHitL (int[] barray) {
@@ -195,6 +199,7 @@ public class GameState {
     }
 
 
+    //move paddles
     public void movePaddleLDown() {
 
 
@@ -243,7 +248,12 @@ public class GameState {
             canvas.drawRect(new Rect(t*69,testingT[t],(t*69)+10,testingT[t]+10), paint);
         }
 
-//draw the ball
+        if (_ballVelocityY==0) {
+            paint.setTextSize(60);
+            canvas.drawText("Paused", 350, 700, paint);
+        }
+
+        //draw the ball
         canvas.drawRect(new Rect(_ballX,_ballY,_ballX + _ballSize,_ballY + _ballSize),
                 paint);
         //draw scores
@@ -256,21 +266,12 @@ public class GameState {
             if (win) {
                 paint.setTextSize(60);
                 canvas.drawText("Player 1 Wins!", 350, 600, paint);
-                //canvas.drawRGB(20, 20, 20);
-                /*while (win){
-                    System.out.println("PAUSED");
-                }*/
             }
         }
         else{
             if (win) {
                 paint.setTextSize(60);
                 canvas.drawText("Player Two Wins!", 350, 600, paint);
-                //canvas.drawRGB(20, 20, 20);
-                //wait(1000);
-                /*while (win) {
-                    System.out.println("PAUSED");
-                }*/
             }
         }
 
@@ -282,6 +283,7 @@ public class GameState {
 
     }
 
+    //get the standard screen dimesnions to attempt a global version of the code
     public static int getScreenWidth() {
         return Resources.getSystem().getDisplayMetrics().widthPixels;
     }

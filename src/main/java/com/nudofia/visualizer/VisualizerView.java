@@ -64,21 +64,18 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
   private GameState _state;
   private boolean AI=false, w=false;
   private int upp=0, low=0;
-    private int[] top = new int[17];
-    private int[] bot = new int[17];
+  private int[] top = new int[17];
+  private int[] bot = new int[17];
   private int firsti=0, secondi=0;
   private BarGraphRenderer barGraphRendererBottom;
   private BarGraphRenderer barGraphRendererTop;
-    private int stat=1;
-    private Visualizer audioOutput = null;
-    private boolean gb=true;
-    List<String> permissions = new ArrayList<String>();
+  private int stat=1;
+  private boolean gb=true;
 
   private Set<Renderer> mRenderers;
 
   private Paint mFlashPaint = new Paint();
   private Paint mFadePaint = new Paint();
-   //public TextView tone= (TextView) findViewById(R.id.tvv), ttwo=(TextView) findViewById(R.id.tvvv);
 
   public VisualizerView(Context context, AttributeSet attrs, int defStyle)
   {
@@ -89,20 +86,11 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
 
   public VisualizerView(Context context, AttributeSet attrs)
   {
-    //super(context, attrs);
     this(context, attrs, 0);
     viewcon= context;
 
     _state = new GameState();
 
-
-    //So we can listen for events...
-    //SurfaceHolder holder = getHolder();
-    //holder.addCallback(this);
-   // setFocusable(true);
-
-    //and instantiate the thread
-   // _thread = new GameThread(context, new Handler());
   }
 
   public VisualizerView(Context context)
@@ -121,23 +109,14 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
     mRenderers = new HashSet<Renderer>();
   }
 
-    public void upstat(){
+  public void upstat(){
         stat--;
     }
 
- public void play(Boolean bool, Boolean b){
+  public void play(Boolean bool, Boolean b){
     AI=bool;
      gb=b;
-
   }
-
-    public void barhits( int up, int low){
-
-    }
-
-
-
-
 
   /**
    * Links the visualizer to a player
@@ -150,23 +129,11 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
     {
       throw new NullPointerException("Cannot link to null MediaPlayer");
     }
-      //AudioTrack visualizedTrack = null;
-     // final int minBufferSize = AudioTrack.getMinBufferSize(Visualizer.getMaxCaptureRate(), AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_8BIT);
-      //visualizedTrack = new AudioTrack(AudioManager.STREAM_MUSIC, Visualizer.getMaxCaptureRate(), AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_8BIT, minBufferSize, AudioTrack.MODE_STREAM);
-      //visualizedTrack.play();
-      //mVisualizer = new Visualizer(visualizedTrack.getAudioSessionId());
-      //audioOutput = new Visualizer(visualizedTrack.getAudioSessionId());
-     // permissions.add(Manifest.permission.RECORD_AUDIO);
-      //audioOutput = new Visualizer(0);
-      mVisualizer = new Visualizer(player.getAudioSessionId());
 
-    // Create the Visualizer object and attach it to our media player.
-    //mVisualizer = new Visualizer(player.getAudioSessionId());
+    mVisualizer = new Visualizer(player.getAudioSessionId());
+
 
     mVisualizer.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
-      //audioOutput.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
-
-
 
     // Pass through Visualizer data to VisualizerView
     Visualizer.OnDataCaptureListener captureListener = new Visualizer.OnDataCaptureListener()
@@ -190,23 +157,6 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
         Visualizer.getMaxCaptureRate() , true, true);
 
 
-      /*audioOutput.setDataCaptureListener(new Visualizer.OnDataCaptureListener() {
-          @Override
-          public void onWaveFormDataCapture(Visualizer visualizer, byte[] waveform, int samplingRate) {
-              updateVisualizer(waveform);
-          }
-
-          @Override
-          public void onFftDataCapture(Visualizer visualizer, byte[] fft, int samplingRate) {
-
-              updateVisualizerFFT(fft);
-          }
-      }, Visualizer.getMaxCaptureRate(), true, false);*/
-
-      //mVisualizer.setEnabled(true);
-      //mVisualizer.setEnabled(false);
-    // Enabled Visualizer and disable when we're done with the stream
-
    mVisualizer.setEnabled(true);
     player.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
     {
@@ -227,7 +177,6 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
       paint.setColor(Color.argb(200, 56, 138, 252));
       barGraphRendererBottom = new BarGraphRenderer(17, paint, false);
       mRenderers.add(barGraphRendererBottom);
-      //up=barGraphRendererBottom.getHi();
 
       //top bars
       Paint paint2 = new Paint();
@@ -236,12 +185,6 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
       paint2.setColor(Color.argb(200, 181, 111, 233));
       barGraphRendererTop = new BarGraphRenderer(17, paint2, true);
       mRenderers.add(barGraphRendererTop);
-      //low=barGraphRendererBottom.getHi();
-    /*if(renderer != null)
-    {
-      mRenderers.add(renderer);
-        //renderer.getHi();
-    }*/
   }
 
   public void clearRenderers()
@@ -301,11 +244,8 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
 
     // Create canvas once we're ready to draw
 
-
-
     mRect.set(0, 0, getWidth(), getHeight());
-
-      //setContentView(R.layout.main);
+      //make black screen if no background is present
       if(gb){
       canvas.saveLayerAlpha(0, 0, getWidth(), getHeight(), 150,
               Canvas.HAS_ALPHA_LAYER_SAVE_FLAG);}
@@ -315,21 +255,8 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
       upp=_state.getOneS();
       low=_state.getTwoS();
       w=_state.getWinStat();
-      /*tone.setText(" "+upp);
-      ttwo.setText(" "+low);*/
+
     _state.draw(canvas,mFlashPaint);
-     /* low=barGraphRendererBottom.getLo();
-      upp=barGraphRendererTop.getHi();
-      firsti=barGraphRendererTop.getTopi();
-      secondi=barGraphRendererBottom.getLowi();
-      _state.barHitL(low, secondi);
-      _state.barHitU(upp, firsti);*/
-
-
-
-
-
-
 
     if(mCanvasBitmap == null)
     {
@@ -350,10 +277,6 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
           bot=barGraphRendererTop.getHi();
           firsti=barGraphRendererTop.getTopi();
           secondi=barGraphRendererBottom.getLowi();
-         // _state.barHitL(bot);
-          //_state.barHitU(top);
-       // up=mRenderers.getHi();
-        //low=r.getL();
       }
     }
 
@@ -370,17 +293,11 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
           secondi=barGraphRendererBottom.getLowi();
           testforbottom++;
          // _state.barHitL(bot);
-          _state.barHitU(top);
+          _state.barHitU(top);//bring bar data into game state
       }
         System.out.println("testforbottom: "+testforbottom);
     }
 
-
-      /*upp=_state.getOneS();
-      low=_state.getTwoS();
-      System.out.println(upp);
-      tone.setText(""+upp);
-      ttwo.setText(""+low);*/
     // Fade out old contents
     mCanvas.drawPaint(mFadePaint);
 
@@ -419,45 +336,7 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
     return Resources.getSystem().getDisplayMetrics().heightPixels;
   }
 
-    /*@Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == 1) {
 
-            boolean result = true;
-            for (int i = 0; i < permissions.length; i++) {
-                result = result && grantResults[i] == PackageManager.PERMISSION_GRANTED;
-            }
-            if (!result) {
-
-                //Toast.makeText(this, "..", Toast.LENGTH_LONG).show();
-                // askPermission();
-            } else {
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    private boolean askPermission() {
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-            int RECORD_AUDIO = checkSelfPermission(Manifest.permission.RECORD_AUDIO );
-
-            if (RECORD_AUDIO != PackageManager.PERMISSION_GRANTED) {
-                permissions.add(Manifest.permission.RECORD_AUDIO);
-            }
-
-
-            if (!permissions.isEmpty()) {
-                requestPermissions(permissions.toArray(new String[permissions.size()]), 1);
-            } else
-                return false;
-        } else
-            return false;
-        return true;
-
-    }*/
 
   @Override
   public boolean onTouchEvent(MotionEvent event) {
@@ -471,8 +350,6 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
       case MotionEvent.ACTION_DOWN:
         X = (int) event.getX();
         Y = (int) event.getY();
-        //System.out.println("X is: "+X);
-       // System.out.println("Y is: "+Y);
         if (X<getScreenWidth()/2&& Y>getScreenHeight()/2){
           _state.movePaddleLDown();
         }

@@ -29,15 +29,15 @@ import com.nudofia.visualizer.R;
 import com.nudofia.visualizer.VisualizerView;
 import com.nudofia.visualizer.renderer.BarGraphRenderer;
 
+//Visualizer app developed for Nvidia Shield K1
 
 public class MainActivity extends Activity {
   private MediaPlayer mPlayer;
   private MediaPlayer mSilentPlayer;  /* to avoid tunnel player issue */
   private VisualizerView mVisualizerView;
-  //private GameThread gamethr;
   private VisualizerView game;
   private boolean ai;
-  private int one=0, two=0, state=0;
+  private int state=0;
   private String url="nope";
   private boolean goBlack=true, musicNotPlaying=true;
   private int REQ_CODE_PICK_SOUNDFILE = 1;
@@ -104,7 +104,7 @@ public class MainActivity extends Activity {
       mSilentPlayer = null;
     }*/
   }
-
+//left over from source project
   // Workaround (for Galaxy S4)
   //
   // "Visualization does not work on the new Galaxy devices"
@@ -123,7 +123,7 @@ public class MainActivity extends Activity {
     }
   }
 
-  // Methods for adding renderers to visualizer
+  // Method that was used for adding renderers to visualizer
   /*private void addBarGraphRenderers()
   {
     Paint paint = new Paint();
@@ -152,8 +152,8 @@ public class MainActivity extends Activity {
 
     ai=false;
 
-    if (url.equals("nope")){
-      System.out.println("URL ISNT THERE");
+    if (url.equals("nope")||url!=null||url!=""){
+      System.out.println("URL IS THERE:"+url);
       goBlack=false;
     }
 
@@ -174,34 +174,19 @@ public class MainActivity extends Activity {
 
     // Start with just bar renderer
     mVisualizerView.addRenderer();
-   // addCircleBarRenderer();
     System.out.println("Game is about to run...");
-    //mVisualizerView.play();
     System.out.println("Game is running...");
-    //while (!mVisualizerView.getWinStatus()){
-
-
-    //}
-   /* if(mPlayer.isPlaying())
-    {
-      return;
-    }
-    mPlayer.prepare();
-    mPlayer.start();*/
-
-
-   //game= new VisualizerView(this);
 
   }
 
-
+//ai mode
   public void aiPressed(View view) throws IllegalStateException, IOException
   {
     setContentView(R.layout.main);
 
     ai=true;
-    if (url.equals("nope")){
-      System.out.println("URL IS THERE");
+    if (url.equals("nope")||url!=null||url!=""){
+      System.out.println("URL IS THERE:"+url);
       goBlack=false;
     }
 
@@ -220,39 +205,23 @@ public class MainActivity extends Activity {
 
     // Start with just bar renderer
     mVisualizerView.addRenderer();
-    // addCircleBarRenderer();
     System.out.println("Game is about to run...");
-    //mVisualizerView.play();
     System.out.println("Game is running...");
 
-
-   /* if(mPlayer.isPlaying())
-    {
-      return;
-    }
-    mPlayer.prepare();
-    mPlayer.start();*/
-
-
-    //game= new VisualizerView(this);
-
   }
+
+  //get background
   public void changePressed(View view) throws IllegalStateException, IOException{
 
-
-
-    EditText txtDescription =
-            (EditText) findViewById(R.id.txt);
+    EditText txtDescription = (EditText) findViewById(R.id.txt);
     url = txtDescription.getText().toString();
-
-
 
   }
 
 
+  //pause game button
   public void stopPressed(View view) throws IllegalStateException, IOException
   {
-    //setContentView(R.layout.mainmenu);
 
     if (state==0){
       state++;
@@ -266,31 +235,19 @@ public class MainActivity extends Activity {
 
     }
     System.out.println("STATE: "+state);
-    //mPlayer.stop();
   }
 
-
+//return to main screen
   public void returnPressed (View view) throws IllegalStateException, IOException{
-    //onDestroy();
-    //cleanUp();
+
     mVisualizerView.clearRenderers();
-    //init();
-    //super.onPause();
-    //super.onDestroy();
-    //super.onResume();
     setContentView(R.layout.mainmenu);
     mVisualizerView.upstat();
     musicNotPlaying=true;
     goBlack=true;
-    //mPlayer = MediaPlayer.create(this, R.raw.mansion);
-   // mPlayer.setLooping(true);
-    //mPlayer.start();
-    //onDestroy();
-    //init();
-    //cleanUp();
-
   }
 
+  //select/change music
   public void musicPressed (View view)throws IllegalStateException, IOException{
 
     Intent intent;
@@ -303,54 +260,27 @@ public class MainActivity extends Activity {
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
     if (requestCode == REQ_CODE_PICK_SOUNDFILE && resultCode == Activity.RESULT_OK){
-      //if ((data != null) && (data.getData() != null)){
+
         audioFileUri = data.getData();
 
         musicNotPlaying=false;
+        mPlayer= MediaPlayer.create(this, audioFileUri);
 
-       /* try {
-          mPlayer.setDataSource(getApplicationContext(), audioFileUri);
-          mPlayer= MediaPlayer.create(this, audioFileUri);
-        } catch (IllegalArgumentException e) {
-          Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
-        } catch (SecurityException e) {
-          Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
-        } catch (IllegalStateException e) {
-          Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      try {
-        mPlayer.prepare();
-      } catch (IllegalStateException e) {
-        Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
-      } catch (IOException e) {
-        Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
-      }*/
-      //mPlayer.setLooping(true);
-      mPlayer= MediaPlayer.create(this, audioFileUri);
-      mPlayer.start();
-
-
-        // Now you can use that Uri to get the file path, or upload it, ...
-      //}
+        mPlayer.start();
     }
   }
 
+  //end app
   public void exitPressed (View view)throws IllegalStateException, IOException{
 
     android.os.Process.killProcess(android.os.Process.myPid());
     System.exit(1);
-    /*Intent intent = new Intent(Intent.ACTION_MAIN);
-    intent.addCategory(Intent.CATEGORY_HOME);
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    startActivity(intent);*/
-    //finish();
+
   }
 
 
 
-
+// wip function
   public void clearPressed(View view)
   {
     mVisualizerView.clearRenderers();

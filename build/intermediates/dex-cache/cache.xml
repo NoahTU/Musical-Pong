@@ -7,7 +7,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="63536d23176325558d7e6e6e568c0380677759bc">
+        sha1="620b21875ed4203ac6567e48bfbb8ba21345bb49">
         <dex dex="F:\P\visualizer-pong-master\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_c1570a61e520f078f60c241bdf4877765cd17e9a\classes.dex" />
     </item>
     <item
@@ -16,7 +16,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="4be749939c51bbd8745c41240a9a52d5ffeb6f0d">
+        sha1="365f0e27376769689476c687f44b33177eaa2a22">
         <dex dex="F:\P\visualizer-pong-master\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_e1600dcbed547feef51207e215207776725087bc\classes.dex" />
     </item>
 

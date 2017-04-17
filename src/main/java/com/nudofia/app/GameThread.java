@@ -12,7 +12,7 @@ import android.view.SurfaceHolder;
 
 public class GameThread extends Thread {
 
-    /** Handle to the surface manager object we interact with */
+    //Handle to the surface manager object
     private Canvas _surfaceHolder;
     private Paint _paint;
     private GameState _state;
