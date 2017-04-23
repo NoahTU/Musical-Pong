@@ -152,13 +152,14 @@ public class MainActivity extends Activity {
 
     ai=false;
 
-    if (url.equals("nope")||url!=null||url!=""){
-      System.out.println("URL IS THERE:"+url);
-      goBlack=false;
+    if (url.equals("nope")||url.equals(null)||url.equals("")){
+      System.out.println("URL IS NOT THERE:"+url);
+      goBlack=true;
     }
 
     else{
       System.out.println("URL IS THERE");
+      goBlack=false;
       new DownloadImageTask((ImageView) findViewById(R.id.imageView))
               .execute(url);
     }
@@ -304,6 +305,9 @@ public class MainActivity extends Activity {
   public void returnPressed (View view) throws IllegalStateException, IOException{
 
     mVisualizerView.clearRenderers();
+    if (state!=0){
+      state--;
+    }
     setContentView(R.layout.mainmenu);
     mVisualizerView.upstat();
     musicNotPlaying=true;

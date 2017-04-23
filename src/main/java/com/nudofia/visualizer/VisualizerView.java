@@ -247,9 +247,12 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
 
     mRect.set(0, 0, getWidth(), getHeight());
       //make black screen if no background is present
-      if(gb){
-      canvas.saveLayerAlpha(0, 0, getWidth(), getHeight(), 150,
-              Canvas.HAS_ALPHA_LAYER_SAVE_FLAG);}
+    if(gb){
+
+      }
+    else{
+      canvas.saveLayerAlpha(0, 0, getWidth(), getHeight(), 150, Canvas.HAS_ALPHA_LAYER_SAVE_FLAG);
+    }
 
     _state.update(AI,lv);
 
