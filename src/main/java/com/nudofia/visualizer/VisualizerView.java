@@ -63,7 +63,7 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
   private Canvas gcanvas;
   private GameState _state;
   private boolean AI=false, w=false;
-  private int upp=0, low=0;
+  private int upp=0, low=0, lv=0;
   private int[] top = new int[17];
   private int[] bot = new int[17];
   private int firsti=0, secondi=0;
@@ -113,9 +113,10 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
         stat--;
     }
 
-  public void play(Boolean bool, Boolean b){
+  public void play(Boolean bool, Boolean b, int level){
     AI=bool;
-     gb=b;
+    gb=b;
+    lv=level;
   }
 
   /**
@@ -250,7 +251,7 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
       canvas.saveLayerAlpha(0, 0, getWidth(), getHeight(), 150,
               Canvas.HAS_ALPHA_LAYER_SAVE_FLAG);}
 
-    _state.update(AI);
+    _state.update(AI,lv);
 
       upp=_state.getOneS();
       low=_state.getTwoS();
@@ -292,10 +293,10 @@ public class VisualizerView extends View implements SurfaceHolder.Callback{
           firsti=barGraphRendererTop.getTopi();
           secondi=barGraphRendererBottom.getLowi();
           testforbottom++;
-         // _state.barHitL(bot);
+          _state.barHitL(top);
           _state.barHitU(top);//bring bar data into game state
       }
-        System.out.println("testforbottom: "+testforbottom);
+        //System.out.println("testforbottom: "+testforbottom);
     }
 
     // Fade out old contents

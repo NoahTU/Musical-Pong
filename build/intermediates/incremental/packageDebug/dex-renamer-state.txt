@@ -1,7 +1,0 @@
-#Sun Apr 16 20:48:51 CDT 2017
-base.0=F\:\\P\\visualizer-pong-master\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_c1570a61e520f078f60c241bdf4877765cd17e9a
-renamed.1=classes.dex
-renamed.0=classes2.dex
-file.1=F\:\\P\\visualizer-pong-master\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_e1600dcbed547feef51207e215207776725087bc\\classes.dex
-base.1=F\:\\P\\visualizer-pong-master\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_e1600dcbed547feef51207e215207776725087bc
-file.0=F\:\\P\\visualizer-pong-master\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_c1570a61e520f078f60c241bdf4877765cd17e9a\\classes.dex

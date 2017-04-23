@@ -170,7 +170,7 @@ public class MainActivity extends Activity {
     mPlayer.setLooping(true);}
     mPlayer.start();
     mVisualizerView.link(mPlayer);
-    mVisualizerView.play(ai, goBlack);
+    mVisualizerView.play(ai, goBlack, 0);
 
     // Start with just bar renderer
     mVisualizerView.addRenderer();
@@ -182,8 +182,13 @@ public class MainActivity extends Activity {
 //ai mode
   public void aiPressed(View view) throws IllegalStateException, IOException
   {
-    setContentView(R.layout.main);
+    setContentView(R.layout.select);
 
+
+  }
+  public void easyPressed(View view)throws IllegalStateException, IOException
+  {
+    setContentView(R.layout.main);
     ai=true;
     if (url.equals("nope")||url!=null||url!=""){
       System.out.println("URL IS THERE:"+url);
@@ -197,17 +202,75 @@ public class MainActivity extends Activity {
     mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
 
     if (musicNotPlaying){
+      System.out.println("IT'S THE BOOLEAN");
       mPlayer = MediaPlayer.create(this, R.raw.mansion);
       mPlayer.setLooping(true);}
-
+    mPlayer.start();
     mVisualizerView.link(mPlayer);
-    mVisualizerView.play(ai, goBlack);
+    mVisualizerView.play(ai, goBlack, 5);
 
     // Start with just bar renderer
     mVisualizerView.addRenderer();
     System.out.println("Game is about to run...");
     System.out.println("Game is running...");
+  }
 
+  public void mediumPressed(View view)throws IllegalStateException, IOException
+  {
+    setContentView(R.layout.main);
+    ai=true;
+    if (url.equals("nope")||url!=null||url!=""){
+      System.out.println("URL IS THERE:"+url);
+      goBlack=false;
+    }
+
+    else{
+      System.out.println("URL ISNT THERE");
+    }
+
+    mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
+
+    if (musicNotPlaying){
+      System.out.println("IT'S THE BOOLEAN");
+      mPlayer = MediaPlayer.create(this, R.raw.mansion);
+      mPlayer.setLooping(true);}
+    mPlayer.start();
+    mVisualizerView.link(mPlayer);
+    mVisualizerView.play(ai, goBlack, 10);
+
+    // Start with just bar renderer
+    mVisualizerView.addRenderer();
+    System.out.println("Game is about to run...");
+    System.out.println("Game is running...");
+  }
+
+  public void hardPressed(View view)throws IllegalStateException, IOException
+  {
+    setContentView(R.layout.main);
+    ai=true;
+    if (url.equals("nope")||url!=null||url!=""){
+      System.out.println("URL IS THERE:"+url);
+      goBlack=false;
+    }
+
+    else{
+      System.out.println("URL ISNT THERE");
+    }
+
+    mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
+
+    if (musicNotPlaying){
+      System.out.println("IT'S THE BOOLEAN");
+      mPlayer = MediaPlayer.create(this, R.raw.mansion);
+      mPlayer.setLooping(true);}
+    mPlayer.start();
+    mVisualizerView.link(mPlayer);
+    mVisualizerView.play(ai, goBlack, 15);
+
+    // Start with just bar renderer
+    mVisualizerView.addRenderer();
+    System.out.println("Game is about to run...");
+    System.out.println("Game is running...");
   }
 
   //get background

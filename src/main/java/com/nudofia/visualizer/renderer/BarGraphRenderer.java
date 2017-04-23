@@ -67,17 +67,17 @@ public class BarGraphRenderer extends Renderer
         mFFTPoints[i * 4 + 1] = 0;
         topArray[i]=0;
 
-        mFFTPoints[i * 4 + 3] = (dbValue * 2 - 10)*15;//gets array of y axis points for gamestate to interact with
-        topArray[i]=(dbValue * 2 - 10)*15;;
+        mFFTPoints[i * 4 + 3] = (dbValue * 2 - 10)*9;//gets array of y axis points for gamestate to interact with
+        topArray[i]=(dbValue * 2 - 10)*9;;
         ii=i;
       }
       else
       {
-        mFFTPoints[i * 4 + 1] = rect.height()*17;
-        botArray[i]=rect.height()*17;
+        mFFTPoints[i * 4 + 1] = rect.height()*13;
+        botArray[i]=rect.height()*13;
 
-        mFFTPoints[i * 4 + 3] = rect.height() - (dbValue * 2 - 10)*15;
-        botArray[i]=rect.height() - (dbValue * 2 - 10)*15;//gets array of y axis points for gamestate to interact with
+        mFFTPoints[i * 4 + 3] = rect.height() - (dbValue * 2 - 10)*9;
+        botArray[i]=rect.height() - (dbValue * 2 - 10)*9;//gets array of y axis points for gamestate to interact with
         iii=i;
       }
       //canvas.drawLines(mFFTPoints, mPaint);

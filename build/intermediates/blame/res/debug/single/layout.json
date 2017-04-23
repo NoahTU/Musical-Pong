@@ -6,5 +6,9 @@
     {
         "merged": "F:\\P\\visualizer-pong-master\\build\\intermediates\\res\\merged\\debug\\layout\\mainmenu.xml",
         "source": "F:\\P\\visualizer-pong-master\\src\\main\\res\\layout\\mainmenu.xml"
+    },
+    {
+        "merged": "F:\\P\\visualizer-pong-master\\build\\intermediates\\res\\merged\\debug\\layout\\select.xml",
+        "source": "F:\\P\\visualizer-pong-master\\src\\main\\res\\layout\\select.xml"
     }
 ]
