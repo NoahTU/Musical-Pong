@@ -116,7 +116,8 @@ public class GameState {
             _ballVelocityX *= -1;
         //_ballVelocityY *= -1;
             _ballX+= _ballVelocityX;
-            _ballY += _ballVelocityY;//Collisions with the bats
+            //_ballY += _ballVelocityY;//Collisions with the bats
+
         //_ballVelocityX+=3;
         //_ballVelocityY+=3;
         speedBoost+=3;

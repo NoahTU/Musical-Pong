@@ -24,6 +24,8 @@ import android.media.audiofx.Visualizer;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.nudofia.utils.TunnelPlayerWorkaround;
 import com.nudofia.visualizer.R;
 import com.nudofia.visualizer.VisualizerView;
@@ -38,7 +40,7 @@ public class MainActivity extends Activity {
   private VisualizerView game;
   private boolean ai;
   private int state=0;
-  private String url="nope";
+  private String url="nope", gif="";
   private boolean goBlack=true, musicNotPlaying=true;
   private int REQ_CODE_PICK_SOUNDFILE = 1;
   private Uri audioFileUri;
@@ -158,11 +160,30 @@ public class MainActivity extends Activity {
     }
 
     else{
-      System.out.println("URL IS THERE");
-      goBlack=false;
-      new DownloadImageTask((ImageView) findViewById(R.id.imageView))
-              .execute(url);
+
+      if (url.length()==3){
+        System.out.println("URL NOT VALID: "+url);
+        goBlack=true;
+      }
+      else if (url.length()>3){
+        gif=url.substring(url.length()-3);
+        System.out.println("Gif: "+gif);
+        if (gif.equals("gif")){
+          System.out.println("URL GIF IS THERE");
+          goBlack=false;
+          GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget((ImageView) findViewById(R.id.imageView));
+          Glide.with(this).load(url).into(imageViewTarget);
+        }
+        else{
+          System.out.println("URL IS THERE");
+          goBlack=false;
+          new DownloadImageTask((ImageView) findViewById(R.id.imageView)).execute(url);
+        }
+      }
+
     }
+
+
     mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
 
     if (musicNotPlaying){
@@ -191,13 +212,33 @@ public class MainActivity extends Activity {
   {
     setContentView(R.layout.main);
     ai=true;
-    if (url.equals("nope")||url!=null||url!=""){
-      System.out.println("URL IS THERE:"+url);
-      goBlack=false;
+    if (url.equals("nope")||url.equals(null)||url.equals("")){
+      System.out.println("URL IS NOT THERE:"+url);
+      goBlack=true;
     }
 
     else{
-      System.out.println("URL ISNT THERE");
+
+      if (url.length()==3){
+        System.out.println("URL NOT VALID: "+url);
+        goBlack=true;
+      }
+      else if (url.length()>3){
+        gif=url.substring(url.length()-3);
+        System.out.println("Gif: "+gif);
+        if (gif.equals("gif")){
+          System.out.println("URL GIF IS THERE");
+          goBlack=false;
+          GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget((ImageView) findViewById(R.id.imageView));
+          Glide.with(this).load(url).into(imageViewTarget);
+        }
+        else{
+          System.out.println("URL IS THERE");
+          goBlack=false;
+          new DownloadImageTask((ImageView) findViewById(R.id.imageView)).execute(url);
+        }
+      }
+
     }
 
     mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
@@ -220,13 +261,33 @@ public class MainActivity extends Activity {
   {
     setContentView(R.layout.main);
     ai=true;
-    if (url.equals("nope")||url!=null||url!=""){
-      System.out.println("URL IS THERE:"+url);
-      goBlack=false;
+    if (url.equals("nope")||url.equals(null)||url.equals("")){
+      System.out.println("URL IS NOT THERE:"+url);
+      goBlack=true;
     }
 
     else{
-      System.out.println("URL ISNT THERE");
+
+      if (url.length()==3){
+        System.out.println("URL NOT VALID: "+url);
+        goBlack=true;
+      }
+      else if (url.length()>3){
+        gif=url.substring(url.length()-3);
+        System.out.println("Gif: "+gif);
+        if (gif.equals("gif")){
+          System.out.println("URL GIF IS THERE");
+          goBlack=false;
+          GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget((ImageView) findViewById(R.id.imageView));
+          Glide.with(this).load(url).into(imageViewTarget);
+        }
+        else{
+          System.out.println("URL IS THERE");
+          goBlack=false;
+          new DownloadImageTask((ImageView) findViewById(R.id.imageView)).execute(url);
+        }
+      }
+
     }
 
     mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
@@ -249,13 +310,33 @@ public class MainActivity extends Activity {
   {
     setContentView(R.layout.main);
     ai=true;
-    if (url.equals("nope")||url!=null||url!=""){
-      System.out.println("URL IS THERE:"+url);
-      goBlack=false;
+    if (url.equals("nope")||url.equals(null)||url.equals("")){
+      System.out.println("URL IS NOT THERE:"+url);
+      goBlack=true;
     }
 
     else{
-      System.out.println("URL ISNT THERE");
+
+      if (url.length()==3){
+        System.out.println("URL NOT VALID: "+url);
+        goBlack=true;
+      }
+      else if (url.length()>3){
+        gif=url.substring(url.length()-3);
+        System.out.println("Gif: "+gif);
+        if (gif.equals("gif")){
+          System.out.println("URL GIF IS THERE");
+          goBlack=false;
+          GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget((ImageView) findViewById(R.id.imageView));
+          Glide.with(this).load(url).into(imageViewTarget);
+        }
+        else{
+          System.out.println("URL IS THERE");
+          goBlack=false;
+          new DownloadImageTask((ImageView) findViewById(R.id.imageView)).execute(url);
+        }
+      }
+
     }
 
     mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
