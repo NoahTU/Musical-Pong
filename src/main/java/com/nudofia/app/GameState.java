@@ -16,7 +16,7 @@ import android.view.MotionEvent;
 public class GameState {
     private Canvas c;
     private boolean aiState = false, aiStateTen= false;
-    private int convertedone=0, convertedtwo=0, saveball=0, ct=0, l=0;
+    private int convertedone=0, convertedtwo=0, saveball=0, saveballtwo=0, ct=0, l=0;
     private int[] testingT= new int[17], testingB = new int[17];
     private Random rand = new Random();
 
@@ -112,17 +112,14 @@ public class GameState {
 
         //Collisions with the bats
 
-        if(_ballY > leftBatY && _ballY < leftBatY+_batHeight && _ballX < leftBatX+7){
+        if(_ballY > leftBatY && _ballY < leftBatY+_batHeight && _ballX < leftBatX+6){
             _ballVelocityX *= -1;
-        //_ballVelocityY *= -1;
-            _ballX+= _ballVelocityX;
-            //_ballY += _ballVelocityY;//Collisions with the bats
-
-        //_ballVelocityX+=3;
-        //_ballVelocityY+=3;
-        speedBoost+=3;
-        AIcounter++;
-        AIcheck(AIcounter);}
+            _ballVelocityY *= -1;
+            _ballVelocityX+=3;
+            _ballVelocityY+=3;
+            speedBoost+=3;
+            AIcounter++;
+            AIcheck(AIcounter);}
 
 
         if(_ballY > rightBatY && _ballY < rightBatY+_batHeight && _ballX > rightBatX-5){
@@ -146,6 +143,7 @@ public class GameState {
     public void pause (int s){
         if (s==1){
             saveball=_ballVelocityY;
+            saveballtwo=_ballVelocityX;
             _ballVelocityY=0;
             _ballVelocityX=0;
             System.out.println("SAVED: "+saveball);
@@ -153,7 +151,7 @@ public class GameState {
         else{
             System.out.println("EXECUTING: "+saveball);
             _ballVelocityY=saveball;
-            _ballVelocityX=saveball;
+            _ballVelocityX=saveballtwo;
             System.out.println("EXECUTED: "+_ballVelocityX);
         }
     }
@@ -193,7 +191,7 @@ public class GameState {
         testingT=tarray;
         //convertedone=i*69;
         //System.out.println("Hit Upper");
-        for (int i=0; i<tarray.length; i++)
+        for (int i=1; i<tarray.length; i++)
         {
             convertedone=i*69;
             if (tarray[i]!=0){
@@ -241,7 +239,7 @@ public class GameState {
         testingB=barray;
 
 
-        for (int i=0; i<barray.length; i++)
+        for (int i=1; i<barray.length; i++)
         {
             convertedone=i*69;
 
@@ -319,11 +317,11 @@ public class GameState {
         for (int t=0; t< testingT.length; t++){
 
             convertedtwo=(testingT[t]+1500)-(testingT[t]*2);
-            canvas.drawRect(new Rect(t*69,convertedtwo,(t*69)+10,convertedtwo+10), paint);
+            //canvas.drawRect(new Rect(t*69,convertedtwo,(t*69)+10,convertedtwo+10), paint);
         }
         for (int t=0; t< testingB.length; t++){
 
-            canvas.drawRect(new Rect(t*69,testingT[t],(t*69)+10,testingT[t]+10), paint);
+            //canvas.drawRect(new Rect(t*69,testingT[t],(t*69)+10,testingT[t]+10), paint);
         }
 
         if (_ballVelocityY==0) {

@@ -400,7 +400,7 @@ public class MainActivity extends Activity {
 
     Intent intent;
     intent = new Intent();
-    intent.setType("audio/mpeg");
+    intent.setType("audio/*");
     intent.setAction(Intent.ACTION_GET_CONTENT);
     startActivityForResult(Intent.createChooser(intent, "Open Audio file"), REQ_CODE_PICK_SOUNDFILE);
   }
