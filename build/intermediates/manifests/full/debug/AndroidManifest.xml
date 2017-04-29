@@ -17,12 +17,12 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:icon="@drawable/ic_launcher"
-        android:label="Musical Pong (Tentative)" >
+        android:icon="@drawable/maxresdefault"
+        android:label="Musical Pong" >
         <activity
             android:name="com.nudofia.app.MainActivity"
             android:configChanges="orientation|keyboard|keyboardHidden"
-            android:label="Musical Pong (Tentative)"
+            android:label="Musical Pong"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

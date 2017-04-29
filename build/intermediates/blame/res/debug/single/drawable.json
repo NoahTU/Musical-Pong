@@ -2,5 +2,9 @@
     {
         "merged": "F:\\P\\visualizer-pong-master\\build\\intermediates\\res\\merged\\debug\\drawable\\bg.xml",
         "source": "F:\\P\\visualizer-pong-master\\src\\main\\res\\drawable\\bg.xml"
+    },
+    {
+        "merged": "F:\\P\\visualizer-pong-master\\build\\intermediates\\res\\merged\\debug\\drawable\\maxresdefault.png",
+        "source": "F:\\P\\visualizer-pong-master\\src\\main\\res\\drawable\\maxresdefault.png"
     }
 ]

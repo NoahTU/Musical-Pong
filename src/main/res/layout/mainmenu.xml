@@ -26,11 +26,18 @@
         android:id="@+id/txt" />
 
     <Button
-        android:text="Change Background"
+        android:text="Change Background By URL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="changePressed"
         android:id="@+id/button" />
+
+    <Button
+        android:text="Change Background By File"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="backPressed"
+        android:id="@+id/butt" />
 
     <Button
         android:text="Music Selection"

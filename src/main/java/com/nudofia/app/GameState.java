@@ -33,13 +33,13 @@ public class GameState {
     int AIstop=rand.nextInt(10) + 1;
 
     //The ball
-    final int _ballSize = 20;
+    final int _ballSize = 40;
     int _ballX = ballstart; 	int _ballY = ballstart;
-    int _ballVelocityX = 9; 	int _ballVelocityY = -9;
+    int _ballVelocityX = 18; 	int _ballVelocityY = -18;
     int speedBoost=0;
 
     //The bats
-    final int _batLength = 10;	final int _batHeight = 150;
+    final int _batLength = 20;	final int _batHeight = 250;
 
     int scoreone=0;
     int scoretwo=0;
@@ -49,7 +49,7 @@ public class GameState {
 
     int leftBatY = (_screenHeight/2);
 
-    final int rightBatX = _screenWidth-30;
+    final int rightBatX = _screenWidth-40;
 
     int rightBatY = (_screenHeight/2);
 
@@ -85,8 +85,8 @@ public class GameState {
             AIcounter=0;
             if (aiStateTen){
                 aiState=true;}
-            _ballVelocityX=10+(speedBoost/2);
-            _ballVelocityY=10+(speedBoost/2);
+            _ballVelocityX=_ballVelocityX+(speedBoost/2);
+            _ballVelocityY=_ballVelocityY+(speedBoost/2);
             speedBoost=0;
             AIstop=rand.nextInt(10) + 1;
             scoreone++;
@@ -115,7 +115,7 @@ public class GameState {
         if(_ballY > leftBatY && _ballY < leftBatY+_batHeight && _ballX < leftBatX+6){
             _ballVelocityX *= -1;
             _ballVelocityY *= -1;
-            _ballVelocityX+=3;
+            _ballVelocityX-=3;
             _ballVelocityY+=3;
             speedBoost+=3;
             AIcounter++;

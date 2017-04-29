@@ -12,11 +12,14 @@ import java.io.IOException;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,11 +42,13 @@ public class MainActivity extends Activity {
   private VisualizerView mVisualizerView;
   private VisualizerView game;
   private boolean ai;
-  private int state=0;
+  private int state=0, fileState=0;
   private String url="nope", gif="";
+  private String picturePath;
   private boolean goBlack=true, musicNotPlaying=true;
   private int REQ_CODE_PICK_SOUNDFILE = 1;
   private Uri audioFileUri;
+  private static int RESULT_LOAD_IMAGE = 2;
 
 
   /** Called when the activity is first created. */
@@ -154,9 +159,14 @@ public class MainActivity extends Activity {
 
     ai=false;
 
-    if (url.equals("nope")||url.equals(null)||url.equals("")){
+    if ((url.equals("nope")||url.equals(null)||url.equals(""))&&picturePath.equals(null)){
       System.out.println("URL IS NOT THERE:"+url);
       goBlack=true;
+    }
+    else if(picturePath!=null){
+      goBlack=false;
+      ImageView imageView = (ImageView) findViewById(R.id.imageView);
+      imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
     }
 
     else{
@@ -206,15 +216,20 @@ public class MainActivity extends Activity {
   {
     setContentView(R.layout.select);
 
-
   }
+
   public void easyPressed(View view)throws IllegalStateException, IOException
   {
     setContentView(R.layout.main);
     ai=true;
-    if (url.equals("nope")||url.equals(null)||url.equals("")){
+    if ((url.equals("nope")||url.equals(null)||url.equals(""))&&picturePath.equals(null)){
       System.out.println("URL IS NOT THERE:"+url);
       goBlack=true;
+    }
+    else if(picturePath!=null){
+      goBlack=false;
+      ImageView imageView = (ImageView) findViewById(R.id.imageView);
+      imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
     }
 
     else{
@@ -261,9 +276,14 @@ public class MainActivity extends Activity {
   {
     setContentView(R.layout.main);
     ai=true;
-    if (url.equals("nope")||url.equals(null)||url.equals("")){
+    if ((url.equals("nope")||url.equals(null)||url.equals(""))&&picturePath.equals(null)){
       System.out.println("URL IS NOT THERE:"+url);
       goBlack=true;
+    }
+    else if(picturePath!=null){
+      goBlack=false;
+      ImageView imageView = (ImageView) findViewById(R.id.imageView);
+      imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
     }
 
     else{
@@ -310,9 +330,14 @@ public class MainActivity extends Activity {
   {
     setContentView(R.layout.main);
     ai=true;
-    if (url.equals("nope")||url.equals(null)||url.equals("")){
+    if ((url.equals("nope")||url.equals(null)||url.equals(""))&&picturePath.equals(null)){
       System.out.println("URL IS NOT THERE:"+url);
       goBlack=true;
+    }
+    else if(picturePath!=null){
+      goBlack=false;
+      ImageView imageView = (ImageView) findViewById(R.id.imageView);
+      imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
     }
 
     else{
@@ -389,7 +414,9 @@ public class MainActivity extends Activity {
     if (state!=0){
       state--;
     }
+
     setContentView(R.layout.mainmenu);
+    picturePath=null;
     mVisualizerView.upstat();
     musicNotPlaying=true;
     goBlack=true;
@@ -416,7 +443,34 @@ public class MainActivity extends Activity {
 
         mPlayer.start();
     }
+
+    else if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+      Uri selectedImage = data.getData();
+      String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+      Cursor cursor = getContentResolver().query(selectedImage,
+              filePathColumn, null, null, null);
+      cursor.moveToFirst();
+
+      int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+      picturePath = cursor.getString(columnIndex);
+      cursor.close();
+
+
+
+    }
   }
+
+  public void backPressed (View view)throws IllegalStateException, IOException{
+
+    Intent i = new Intent(
+            Intent.ACTION_PICK,
+            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+    startActivityForResult(i, RESULT_LOAD_IMAGE);
+  }
+
+
 
   //end app
   public void exitPressed (View view)throws IllegalStateException, IOException{

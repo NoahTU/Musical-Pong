@@ -15,31 +15,28 @@ public class GameThread extends Thread {
     //Handle to the surface manager object
     private Canvas _surfaceHolder;
     private Paint _paint;
-    private GameState _state;
+   // private GameState _state;
 
     //SurfaceHolder surfaceHolder, Context context, Handler handler
     public GameThread(Canvas canvas, Context context, Handler handler)
     {
         _surfaceHolder = canvas;
         _paint = new Paint();
-        _state = new GameState();
+       // _state = new GameState();
     }
 
     @Override
     public void run() {
         while(true)
         {
-            //Canvas c= new Canvas();
-            //Canvas canvas = _surfaceHolder.lockCanvas();
-            //_state.update(false);
             System.out.println("It should have updated...");
-            _state.draw(_surfaceHolder,_paint);
-           // _surfaceHolder.unlockCanvasAndPost(canvas);
+            //_state.draw(_surfaceHolder,_paint);
+
         }
     }
 
-    public GameState getGameState()
+    /*public GameState getGameState()
     {
-        return _state;
-    }
+        //return _state;
+    }*/
 }
