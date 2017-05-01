@@ -53,5 +53,11 @@
         android:onClick="exitPressed"
         android:id="@+id/button3" />
 
+    <TextView
+        android:text="NoahTU: 2017"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView" />
+
 
 </LinearLayout>

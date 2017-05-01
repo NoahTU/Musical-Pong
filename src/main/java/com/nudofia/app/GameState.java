@@ -20,9 +20,6 @@ public class GameState {
     private int[] testingT= new int[17], testingB = new int[17];
     private Random rand = new Random();
 
-    //screen width and height 1200, 4000 LEFT OVER FOR LATER USE
-    //final int _screenWidth = 1200;
-    //final int _screenHeight = 1130;
 
     final int _screenWidth = getScreenWidth()-30;
     final int _screenHeight = getScreenHeight();
@@ -30,12 +27,12 @@ public class GameState {
     int ballstart= 600;
 
     int AIcounter=0;
-    int AIstop=rand.nextInt(10) + 1;
+    int AIstop=rand.nextInt(5) + 1;
 
     //The ball
     final int _ballSize = 40;
     int _ballX = ballstart; 	int _ballY = ballstart;
-    int _ballVelocityX = 18; 	int _ballVelocityY = -18;
+    int _ballVelocityX = 22; 	int _ballVelocityY = -22;
     int speedBoost=0;
 
     //The bats
@@ -53,7 +50,7 @@ public class GameState {
 
     int rightBatY = (_screenHeight/2);
 
-    final int _batSpeed = 100;
+    int _batSpeed = 100;
 
     public GameState()
     {
@@ -75,7 +72,7 @@ public class GameState {
         _ballX += _ballVelocityX;
         _ballY += _ballVelocityY;
 
-//death hello darkness my old friend
+//death: hello darkness my old friend
         if(_ballY > _screenHeight-250 || _ballY < 40 || _ballY<0)
         {_ballVelocityY *= -1;}  	//Collisions with the sides _ballX = ballstart; 	_ballY = ballstart;
 
@@ -83,12 +80,12 @@ public class GameState {
             _ballX = ballstart;
             _ballY = ballstart;
             AIcounter=0;
-            if (aiStateTen){
-                aiState=true;}
-            _ballVelocityX=_ballVelocityX+(speedBoost/2);
-            _ballVelocityY=_ballVelocityY+(speedBoost/2);
+            if (aiState){
+                aiStateTen=true;}
+            _ballVelocityX=22+(speedBoost/2);
+            _ballVelocityY=22+(speedBoost/2);
             speedBoost=0;
-            AIstop=rand.nextInt(10) + 1;
+            AIstop=rand.nextInt(l) + 1;
             scoreone++;
             check(scoreone);
 
@@ -99,12 +96,12 @@ public class GameState {
             _ballX = ballstart;
             _ballY = ballstart;
             AIcounter=0;
-            if (aiStateTen){
-                aiState=true;}
-            _ballVelocityX=10+(speedBoost/2);
-            _ballVelocityY=10+(speedBoost/2);
+            if (aiState){
+                aiStateTen=true;}
+            _ballVelocityX=25+(speedBoost/2);
+            _ballVelocityY=25+(speedBoost/2);
             speedBoost=0;
-            AIstop=rand.nextInt(5) + 1;
+            AIstop=rand.nextInt(l) + 1;
             scoretwo++;
             check(scoretwo);
 
@@ -119,37 +116,40 @@ public class GameState {
             _ballVelocityY+=3;
             speedBoost+=3;
             AIcounter++;
-            AIcheck(AIcounter);}
+            }
 
 
         if(_ballY > rightBatY && _ballY < rightBatY+_batHeight && _ballX > rightBatX-5){
             _ballVelocityX *= -1;
-        _ballVelocityY *= -1;
+            _ballVelocityY *= -1;
             _ballVelocityX+=3;
             _ballVelocityY+=3;
             speedBoost+=3;
             AIcounter++;
-            AIcheck(AIcounter);}
+            }
 
         //AI
-        if (aiState){
-            rightBatY=_ballY;
+        AIcheck(AIcounter);
+        if (aiStateTen){
+            rightBatY=_ballY-50;//hard int added for smoother animation on testing tablet
         }
 
 
     }
 
     //pause game assets
-    public void pause (int s){
+    public void pause (int s){ //s for state
         if (s==1){
             saveball=_ballVelocityY;
             saveballtwo=_ballVelocityX;
             _ballVelocityY=0;
             _ballVelocityX=0;
+            _batSpeed=0;
             System.out.println("SAVED: "+saveball);
         }
         else{
             System.out.println("EXECUTING: "+saveball);
+            _batSpeed=100;
             _ballVelocityY=saveball;
             _ballVelocityX=saveballtwo;
             System.out.println("EXECUTED: "+_ballVelocityX);
@@ -160,14 +160,18 @@ public class GameState {
     public void check (int didwin){
         if (didwin==l){
             win=true;
+            _ballVelocityY=0;
+            _ballVelocityX=0;
+            _batSpeed=0;
         }
     }
 
     public void AIcheck (int questionstop){
         System.out.println("Hits: "+questionstop);
         System.out.println("Random: "+AIstop);
-        if (questionstop==AIstop){
-            aiState=false;
+        System.out.println("Random: "+aiStateTen);
+        if (questionstop==AIstop||questionstop>AIstop){
+            aiStateTen=false;
         }
     }
     //give out win status to other classes
@@ -208,21 +212,31 @@ public class GameState {
 
 
                 if (_ballVelocityY<0){
-                    System.out.println("HIIIIIIIIIT");
+                    //System.out.println("HIIIIIIIIIT");
                     _ballVelocityY *= -1;
                     _ballVelocityY++;
 
+                    if(_ballVelocityX<0){
+                        _ballVelocityX--;
+                    }
+                    else{
+                        _ballVelocityX++;
+                    }
                     speedBoost++;
                     _ballY += _ballVelocityY;
                     }
                 else{
                     _ballVelocityY++;
+                    if(_ballVelocityX<0){
+                        _ballVelocityX--;
+                    }
+                    else{
+                        _ballVelocityX++;
+                    }
                     speedBoost++;
                 }
 
-                    //_ballVelocityY *= -1;
-                    //_ballY += _ballVelocityY;
-               // }
+
             }
         }
     }
@@ -231,11 +245,6 @@ public class GameState {
         //System.out.println("Hit Lower");
         //System.out.println("LOWER: "+barY);
 
-        /*if (barY<_ballY){
-            //System.out.println("HIIIIIITTT");
-            _ballVelocityY *= -1;
-            _ballY += _ballVelocityY;
-        }*/
         testingB=barray;
 
 
@@ -250,14 +259,26 @@ public class GameState {
 
 
                 if (_ballVelocityY>0){
-                    //System.out.println("H222222222T");
                     _ballVelocityY *= -1;
-                   // _ballVelocityX++;
                     speedBoost++;
                     _ballVelocityY++;
-                    _ballY += _ballVelocityY;}
+                    _ballY += _ballVelocityY;
+                    if(_ballVelocityX<0){
+                        _ballVelocityX--;
+                    }
+                    else{
+                        _ballVelocityX++;
+                    }
+
+                }
                 else{
                     _ballVelocityY--;
+                    if(_ballVelocityX<0){
+                        _ballVelocityX--;
+                    }
+                    else{
+                        _ballVelocityX++;
+                    }
                     speedBoost++;
                 }
                 // }
@@ -342,6 +363,7 @@ public class GameState {
             if (win) {
                 paint.setTextSize(60);
                 canvas.drawText("Player 1 Wins!", 475, 600, paint);
+                canvas.drawText("Press Return", 475, 500, paint);
             }
         }
         else{
@@ -349,9 +371,12 @@ public class GameState {
                 paint.setTextSize(60);
                 if (aiState){
                     canvas.drawText("AI Wins!", 475, 600, paint);
+                    canvas.drawText("Press Return", 475, 500, paint);
                 }
                 else{
-                canvas.drawText("Player Two Wins!", 475, 600, paint);}
+                    canvas.drawText("Player Two Wins!", 475, 600, paint);
+                    canvas.drawText("Press Return", 475, 500, paint);
+                }
             }
         }
 

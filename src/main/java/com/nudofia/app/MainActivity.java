@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
   private boolean ai;
   private int state=0, fileState=0;
   private String url="nope", gif="";
-  private String picturePath;
+  private String picturePath="";
   private boolean goBlack=true, musicNotPlaying=true;
   private int REQ_CODE_PICK_SOUNDFILE = 1;
   private Uri audioFileUri;
@@ -82,34 +82,12 @@ public class MainActivity extends Activity {
 
   private void init()
   {
-    //mPlayer = MediaPlayer.create(this, null);
-    //mPlayer.setLooping(true);
-    //mPlayer.start();
-
-    // We need to link the visualizer view to the media player so that
-    // it displays something
-
-    /*mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
-    mVisualizerView.link(mPlayer);
-    // Start with just bar renderer
-    addBarGraphRenderers();
-    addCircleBarRenderer();*/
+    //needed to begin app
   }
 
   private void cleanUp()
   {
-    /*if (mPlayer != null)
-    {
-      mVisualizerView.release();
-      mPlayer.release();
-      mPlayer = null;
-    }
-
-    if (mSilentPlayer != null)
-    {
-      mSilentPlayer.release();
-      mSilentPlayer = null;
-    }*/
+    //needed to prevent crashes
   }
 //left over from source project
   // Workaround (for Galaxy S4)
@@ -130,36 +108,16 @@ public class MainActivity extends Activity {
     }
   }
 
-  // Method that was used for adding renderers to visualizer
-  /*private void addBarGraphRenderers()
-  {
-    Paint paint = new Paint();
-    paint.setStrokeWidth(50f);
-    paint.setAntiAlias(true);
-    paint.setColor(Color.argb(200, 56, 138, 252));
-    BarGraphRenderer barGraphRendererBottom = new BarGraphRenderer(16, paint, false);
-    mVisualizerView.addRenderer(barGraphRendererBottom);
-    up=barGraphRendererBottom.getHi();
-
-    Paint paint2 = new Paint();
-    paint2.setStrokeWidth(50f);
-    paint2.setAntiAlias(true);
-    paint2.setColor(Color.argb(200, 181, 111, 233));
-    BarGraphRenderer barGraphRendererTop = new BarGraphRenderer(16, paint2, true);
-    mVisualizerView.addRenderer(barGraphRendererTop);
-    low=barGraphRendererBottom.getHi();
-  }*/
-
-
-
   // Actions for buttons defined in xml
+  //1v1 mode
   public void startPressed(View view) throws IllegalStateException, IOException
   {
     setContentView(R.layout.main);
 
     ai=false;
 
-    if ((url.equals("nope")||url.equals(null)||url.equals(""))&&picturePath.equals(null)){
+    //checks for backgrounds
+    if ((url.equals("nope")||url.equals(null)||url.equals(""))&&picturePath.equals("")){
       System.out.println("URL IS NOT THERE:"+url);
       goBlack=true;
     }
@@ -194,6 +152,7 @@ public class MainActivity extends Activity {
     }
 
 
+    //start vizualizer task
     mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
 
     if (musicNotPlaying){
@@ -211,7 +170,7 @@ public class MainActivity extends Activity {
 
   }
 
-//ai mode
+//ai modes
   public void aiPressed(View view) throws IllegalStateException, IOException
   {
     setContentView(R.layout.select);
@@ -222,7 +181,8 @@ public class MainActivity extends Activity {
   {
     setContentView(R.layout.main);
     ai=true;
-    if ((url.equals("nope")||url.equals(null)||url.equals(""))&&picturePath.equals(null)){
+    //checks for backgrounds
+    if ((url.equals("nope")||url.equals(null)||url.equals(""))&&picturePath.equals("")){
       System.out.println("URL IS NOT THERE:"+url);
       goBlack=true;
     }
@@ -256,6 +216,7 @@ public class MainActivity extends Activity {
 
     }
 
+    //start vizualizer task
     mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
 
     if (musicNotPlaying){
@@ -276,7 +237,8 @@ public class MainActivity extends Activity {
   {
     setContentView(R.layout.main);
     ai=true;
-    if ((url.equals("nope")||url.equals(null)||url.equals(""))&&picturePath.equals(null)){
+    //checks for backgrounds
+    if ((url.equals("nope")||url.equals(null)||url.equals(""))&&picturePath.equals("")){
       System.out.println("URL IS NOT THERE:"+url);
       goBlack=true;
     }
@@ -310,6 +272,7 @@ public class MainActivity extends Activity {
 
     }
 
+    //start vizualizer task
     mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
 
     if (musicNotPlaying){
@@ -330,7 +293,8 @@ public class MainActivity extends Activity {
   {
     setContentView(R.layout.main);
     ai=true;
-    if ((url.equals("nope")||url.equals(null)||url.equals(""))&&picturePath.equals(null)){
+    //checks for backgrounds
+    if ((url.equals("nope")||url.equals(null)||url.equals(""))&&picturePath.equals("")){
       System.out.println("URL IS NOT THERE:"+url);
       goBlack=true;
     }
@@ -363,6 +327,8 @@ public class MainActivity extends Activity {
       }
 
     }
+
+    //start vizualizer task
 
     mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
 
@@ -416,7 +382,7 @@ public class MainActivity extends Activity {
     }
 
     setContentView(R.layout.mainmenu);
-    picturePath=null;
+    picturePath="";
     mVisualizerView.upstat();
     musicNotPlaying=true;
     goBlack=true;

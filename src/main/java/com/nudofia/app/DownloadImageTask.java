@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import java.io.InputStream;
 
-//class used to help pull image from url without hurting performance
+//class used to help pull image from url without hurting performance. Bsically, if the file isn't a gif or on the device it is brought and rendered here
 
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap>{
     ImageView bmImage;
